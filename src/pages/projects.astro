@@ -1,0 +1,30 @@
+---
+import Layout from "../layouts/MainLayout.astro";
+import { getCollection } from "astro:content";
+
+const projects = await getCollection("projects");
+const rendered = await Promise.all(
+  projects.map(async (project) => {
+    const { Content, headings } = await project.render();
+    return { project, Content, headings };
+  })
+);
+---
+
+<Layout title="Projects">
+  <h1>Projects</h1>
+  <ul class="content-list">
+    {
+      rendered.map(({ project, Content, headings }) => {
+        return (
+          <li>
+            <h2>
+              <a href={project.data.url}>{project.data.title}</a>
+            </h2>
+            <Content />
+          </li>
+        );
+      })
+    }
+  </ul>
+</Layout>

@@ -88,6 +88,11 @@ body {
     a {
       color: inherit;
       text-decoration: none;
+      transition: 0.15s;
+    }
+
+    a:hover {
+      opacity: 0.5;
     }
   }
 }
@@ -167,6 +172,24 @@ main {
       position: relative;
       vertical-align: top;
       top: -0.4em;
+    }
+  }
+
+  ul.content-list {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: var(--line-height);
+
+    li {
+      margin-bottom: calc(var(--line-height) * 2);
+
+      h2 {
+        margin-bottom: 0;
+
+        a {
+          text-decoration: none;
+        }
+      }
     }
   }
 }
