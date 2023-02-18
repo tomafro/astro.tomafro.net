@@ -1,0 +1,172 @@
+@use "fonts";
+@use "reset";
+
+:root {
+  --headline-font: Rubik, sans-serif;
+  --headline-font-ascenders: 935;
+  --headline-font-descenders: 250;
+  --headline-font-size-ratio: calc((var(--headline-font-ascenders) + var(--headline-font-descenders)) / 1000);
+  --headline-font-descender-ratio: calc(var(--headline-font-size-ratio) * (var(--headline-font-descenders) / (var(--headline-font-ascenders) + var(--headline-font-descenders))));
+  --body-font: Bitter, serif;
+  --body-font-ascenders: 935;
+  --body-font-descenders: 265;
+  --body-font-size-ratio: calc((var(--body-font-ascenders) + var(--body-font-descenders)) / 1000);
+  --body-font-descender-ratio: calc(var(--body-font-size-ratio) * (var(--body-font-descenders) / (var(--body-font-ascenders) + var(--body-font-descenders))));
+  --code-font: Fira Code, monospace;
+  --accent-colour: rgb(0, 12, 183);
+  --font-size: 18px;
+  --line-height-size: 28px;
+  --line-height: var(--line-height-size);
+  --baseline: calc(((var(--line-height) - 1ex) / 2));
+  --baseline-adjustment: 0.0ex;
+
+  --astro-code-token-constant: var(--accent-colour);
+  --astro-code-token-string: black;
+  --astro-code-token-comment: black;
+  --astro-code-token-keyword: var(--accent-colour);
+  --astro-code-token-parameter: black;
+  --astro-code-token-function: rgb(0, 163, 11);
+  --astro-code-token-string-expression: black;
+  --astro-code-token-punctuation: rgb(179, 0, 12);
+  --astro-code-token-link: black;
+}
+
+html {
+  font-family: var(--body-font);
+  font-weight: 500;
+  font-size: var(--font-size);
+  line-height: var(--line-height);
+  word-spacing: 0.1rem;
+}
+
+.content-bounds {
+  max-width: 48rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+pre,
+code {
+  font-family: var(--code-font);
+  font-weight: 500;
+}
+
+body.baseline {
+  //background: repeating-linear-gradient(white, white calc(1lh - 1px), #9da2db calc(1lh - 1px), #9da2db 1lh);
+}
+
+body {
+  >header {
+    nav {
+      ul {
+        list-style: none;
+        display: flex;
+        flex-direction: row;
+
+        li::after {
+          content: "•";
+          padding-left: 0.5rem;
+          padding-right: 0.5rem;
+        }
+
+        li:last-child::after {
+          content: "";
+          padding-left: 0;
+          padding-right: 0;
+        }
+      }
+    }
+
+    margin-bottom: var(--line-height);
+    background: var(--accent-colour);
+    color: white;
+    font-family: var(--headline-font);
+    text-transform: uppercase;
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+  }
+}
+
+
+main {
+  --baseline: calc(1em * var(--body-font-descender-ratio) + ((var(--line-height) - (1em * var(--body-font-size-ratio))) / 2));
+  padding-top: var(--baseline);
+
+  p,
+  pre {
+    margin-bottom: var(--line-height);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    position: relative;
+    font-family: var(--headline-font);
+    font-weight: 500;
+    text-transform: uppercase;
+    --baseline-adjust: 0px;
+    top: var(--baseline-adjust);
+    margin-bottom: var(--line-height);
+  }
+
+  h1 {
+    font-size: 2.8rem;
+    line-height: calc(var(--line-height) * 2);
+    --baseline-adjust: 3px;
+  }
+
+  h2 {
+    font-size: 1.6rem;
+    --baseline-adjust: -4px;
+  }
+
+  h3 {
+    font-size: 1.2rem;
+    --baseline-adjust: -1px;
+  }
+
+  h4 {
+    font-size: 1.1rem;
+    --baseline-adjust: -1px;
+  }
+
+  a {
+    color: var(--accent-colour);
+    text-decoration: underline;
+    text-decoration-thickness: 0.1em;
+    font-weight: 600;
+    transition: 0.15s;
+  }
+
+  a:hover {
+    opacity: 0.5;
+  }
+
+  p {
+    code {
+      position: relative;
+      border: 1px solid #ecdc9e;
+      background-color: #fff8cf;
+      border-radius: 3px;
+      padding-left: 2px;
+      padding-right: 2px;
+      display: inline-block;
+      margin-top: -1px;
+      margin-bottom: -1px;
+    }
+
+    sup {
+      // Align with the top of the text, so as not to interfere with the baseline. Then use
+      // relative positioning to push the superscript up a little.
+      position: relative;
+      vertical-align: top;
+      top: -0.4em;
+    }
+  }
+}
