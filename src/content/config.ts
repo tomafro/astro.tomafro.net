@@ -7,6 +7,14 @@ const projects = defineCollection({
   })
 });
 
+const articles = defineCollection({
+  schema: z.object({
+    title: z.string(),
+    date: z.string().transform(str => new Date(str)),
+  })
+});
+
 export const collections = {
   'projects': projects,
+  'articles': articles,
 };

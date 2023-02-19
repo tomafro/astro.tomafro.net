@@ -1,0 +1,64 @@
+---
+title: Using direnv to make life easier
+date: "2023-02-16"
+draft: true
+---
+One of the tools I find most useful for local development is [direnv](https://direnv.net/). It's one of a number of similar utilities that hooks into your shell, and alters the environment when you enter or leave a directory.
+
+To give you an example, if you have a folder `~/example` with the file `~/example/.envrc`
+
+```bash
+export EXAMPLE_NAME="Danie"
+```
+
+Then when in your shell session you `cd` into `~/example` it will export the `EXAMPLE_NAME` variable:
+
+```bash
+❯ cd ~/example
+direnv: loading ~/example/.envrc
+direnv: export +EXAMPLE_NAME
+❯ echo Hello $EXAMPLE_NAME
+Hello Danie
+```
+
+Just as importantly, when you navigate away, the variable will be unset:
+
+```bash
+❯ cd ~
+direnv: unloading
+❯ echo Hello $EXAMPLE_NAME
+Hello
+```
+
+## Simple use cases
+
+More command line tools than you might think make use of environment variables, as of course does your shell. There are some obvious and less obvious uses for direnv. Here are a few that I use:
+
+### QUICKLY LAUNCH THE CORRECT DEVELOPMENT DATABASE
+Setting [Postgres Environment Variables](https://www.postgresql.org/docs/current/libpq-envars.html) `PGDATABASE`, `PGUSER`, and `PGPASSWORD`[^1] to match my development database credentials means that when in a project folder, `psql` will open the correct database.
+
+### SECURELY USE AWS SECRETS (via 1Password)
+Unlike a development database password, I'm more careful with AWS credentials. While `AWS_PROFILE`, `AWS_REGION`, and `AWS_ACCESS_KEY_ID` are safe to share, I prefer to keep `AWS_SECRET_ACCESS_KEY` values out of my `.envrc` files. But that doesn't mean I can't use them. I store these secrets in 1Password and use the CLI to retrieve them. So my `.envrc` looks like this:
+
+```bash
+export AWS_REGION=eu-west-2
+export AWS_ACCESS_KEY_ID=AKABCDEFGHIJKLMNO
+export AWS_SECRET_ACCESS_KEY="$(op read op://dev/aws/SECRET_ACCESS_KEY)"
+```
+
+The environment variable is still set to the secret, but the secret itself is stored more securely than in an unencrypted `.envrc`.
+
+### Add arbitrary commands to the path
+In one of the clojure projects I work on, the command I use start the REPL is:
+```bash
+clojure -A:dev:test:backend:backend-test:system-test:repl
+```
+To save having to type this (or more accurately -- search the shell history), I put it in a very short script, saved (and `.gitignored`) in `.local/bin/repl`. Then in that project's `.envrc` I've simply put:
+
+```bash
+PATH_add ./.local/bin
+```
+
+When in this project folder, typing `repl` launches the repl.
+
+[^1]: If I'd set one. YOLO.

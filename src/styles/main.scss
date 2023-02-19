@@ -145,6 +145,14 @@ main {
     margin-bottom: var(--line-height);
   }
 
+  hgroup {
+    h2 {
+      font-weight: 100;
+    }
+
+    margin-bottom: var(--line-height);
+  }
+
   h1 {
     font-size: 2.8rem;
     line-height: calc(var(--line-height) * 2);
@@ -159,6 +167,7 @@ main {
   h3 {
     font-size: 1.2rem;
     --baseline-adjust: -1px;
+    margin-bottom: 0;
   }
 
   h4 {
@@ -217,6 +226,18 @@ main {
         }
       }
     }
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
   }
 
   picture {

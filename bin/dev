@@ -1,0 +1,2 @@
+#!/bin/bash
+npx astro --host tom-macbook dev

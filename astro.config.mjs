@@ -23,7 +23,9 @@ export default defineConfig({
       langs: [],
       // Enable word wrap to prevent horizontal scrolling
       wrap: true
-    }
+    },
+    remarkRehype: { footnoteLabel: "Footnotes", footnoteLabelTagName: "p", footnoteBackLabel: "Back to content" },
+
   },
   integrations: [sitemap(), mdx(), image()]
 });
