@@ -1,7 +1,11 @@
 import { defineConfig } from 'astro/config';
 
 // https://astro.build/config
+import sitemap from "@astrojs/sitemap";
+
+// https://astro.build/config
 export default defineConfig({
+  site: "https://tomafro.net",
   markdown: {
     shikiConfig: {
       // Choose from Shiki's built-in themes (or add your own)
@@ -12,7 +16,8 @@ export default defineConfig({
       // https://github.com/shikijs/shiki/blob/main/docs/languages.md
       langs: [],
       // Enable word wrap to prevent horizontal scrolling
-      wrap: true,
+      wrap: true
     }
   },
+  integrations: [sitemap()]
 });
