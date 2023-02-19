@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="Tom Ward's personal website">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="preload" href="/fonts/rubik.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/fonts/rubik-italic.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/fonts/bitter.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/fonts/bitter-italic.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/fonts/fira-code.woff2" as="font" type="font/woff2" crossorigin>
+    <meta name="generator" content="Astro v2.0.14">
+    <title>Projects - Tom Ward's Blog</title>
+  <link rel="stylesheet" href="/_astro/index.1d88855f.css" /></head>
+  <body class="baseline">
+    <header>
+      <div class="content-bounds">
+        <nav>
+          <ul>
+            <li><a href="/">About</a></li>
+            <li><a href="/projects">Projects</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+    <main>
+      <div class="content-bounds">
+        <h1>Projects</h1><ul class="content-list">
+    <li>
+            <h2>
+              <a href="https://github.com/tomafro/astro.tomafro.net">astro.tomafro.net</a>
+            </h2>
+            <p>This very site. Built with <a href="https://astro.build/">Astro</a>, hosted via <a href="https://vercel.com">Vercel</a>.</p>
+          </li><li>
+            <h2>
+              <a href="https://github.com/tomafro/dotfiles">dotfiles</a>
+            </h2>
+            <p>My personal MacOS dotfiles, using the <a href="https://fishshell.com/">fish shell</a>, <a href="https://brew.sh">Homebrew</a>, <a href="https://github.com/direnv/direnv">direnv</a>, <a href="https://asdf-vm.com/">asdf</a>, and more.</p>
+          </li><li>
+            <h2>
+              <a href="https://github.com/tomafro/htmlq">htmlq</a>
+            </h2>
+            <p>A very quick rust command line tool to query html, in a similar way to <code>jq</code>.</p>
+<pre is:raw="" class="astro-code" style="background-color: var(--astro-code-color-background); overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;"><code><span class="line"><span style="color: var(--astro-code-color-text)">$ http https://tomafro.net </span><span style="color: var(--astro-code-token-keyword)">|</span><span style="color: var(--astro-code-color-text)"> htmlq </span><span style="color: var(--astro-code-token-string-expression)">"li:nth-child(2) i.fab"</span></span>
+<span class="line"><span style="color: var(--astro-code-token-keyword)">&#x3C;</span><span style="color: var(--astro-code-color-text)">i class=</span><span style="color: var(--astro-code-token-string-expression)">"fab fa-github-square"</span><span style="color: var(--astro-code-color-text)">>&#x3C;/i</span><span style="color: var(--astro-code-token-keyword)">></span></span></code></pre>
+          </li><li>
+            <h2>
+              <a href="https://github.com/tomafro/odb-raycast">odb-raycast</a>
+            </h2>
+            <p>A simple Raycast extension using the <code>odb</code> tool I wrote to very quickly query documents in obsidian vaults.</p>
+          </li><li>
+            <h2>
+              <a href="https://github.com/tomafro/odb">odb</a>
+            </h2>
+            <p>A simple CLI tool to query my <a href="https://obsidian.md">Obsidian</a> documents, built in <a href="https://https://www.rust-lang.org/">rust</a> with a <a href="https://www.sqlite.org/index.html">SQLite</a> backend.</p>
+<pre class="astro-code" style="background-color:var(--astro-code-color-background);overflow-x:auto;white-space:pre-wrap;word-wrap:break-word"><code><span class="line"><span style="color:var(--astro-code-color-text)">❯ odb --json </span><span style="color:var(--astro-code-token-string-expression)">&quot;Recipe&quot;</span></span></code></pre>
+<pre class="astro-code" style="background-color:var(--astro-code-color-background);overflow-x:auto;white-space:pre-wrap;word-wrap:break-word"><code><span class="line"><span style="color:var(--astro-code-color-text)">[</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">  {</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">    </span><span style="color:var(--astro-code-token-keyword)">&quot;title&quot;</span><span style="color:var(--astro-code-token-punctuation)">:</span><span style="color:var(--astro-code-color-text)"> </span><span style="color:var(--astro-code-token-string-expression)">&quot;Tomato and Fennel Risotto&quot;</span><span style="color:var(--astro-code-token-punctuation)">,</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">    </span><span style="color:var(--astro-code-token-keyword)">&quot;url&quot;</span><span style="color:var(--astro-code-token-punctuation)">:</span><span style="color:var(--astro-code-color-text)"> </span><span style="color:var(--astro-code-token-string-expression)">&quot;obsidian://open?%2FTomato%20and%20Fennel%20Risotto.md&quot;</span><span style="color:var(--astro-code-token-punctuation)">,</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">  }</span><span style="color:var(--astro-code-token-punctuation)">,</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">  {</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">    </span><span style="color:var(--astro-code-token-keyword)">&quot;title&quot;</span><span style="color:var(--astro-code-token-punctuation)">:</span><span style="color:var(--astro-code-color-text)"> </span><span style="color:var(--astro-code-token-string-expression)">&quot;Christmas Pudding&quot;</span><span style="color:var(--astro-code-token-punctuation)">,</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">    </span><span style="color:var(--astro-code-token-keyword)">&quot;url&quot;</span><span style="color:var(--astro-code-token-punctuation)">:</span><span style="color:var(--astro-code-color-text)"> </span><span style="color:var(--astro-code-token-string-expression)">&quot;obsidian://open?%2FChristmas%20Pudding.md&quot;</span><span style="color:var(--astro-code-token-punctuation)">,</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">  }</span><span style="color:var(--astro-code-token-punctuation)">,</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">  {</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">    </span><span style="color:var(--astro-code-token-keyword)">&quot;title&quot;</span><span style="color:var(--astro-code-token-punctuation)">:</span><span style="color:var(--astro-code-color-text)"> </span><span style="color:var(--astro-code-token-string-expression)">&quot;Gnocchi with Chilli Crisp Oil, Capers, and Parmesan&quot;</span><span style="color:var(--astro-code-token-punctuation)">,</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">    </span><span style="color:var(--astro-code-token-keyword)">&quot;url&quot;</span><span style="color:var(--astro-code-token-punctuation)">:</span><span style="color:var(--astro-code-color-text)"> </span><span style="color:var(--astro-code-token-string-expression)">&quot;obsidian://open?%2FGnocchi%20with%20Chilli%20Crisp%20Oil.md&quot;</span><span style="color:var(--astro-code-token-punctuation)">,</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">  }</span><span style="color:var(--astro-code-token-punctuation)">,</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">  ...</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">]</span></span></code></pre>
+          </li><li>
+            <h2>
+              <a href="https://github.com/tomafro/ray-tracer-challenge">Ray Tracer Challenge</a>
+            </h2>
+            <p>A rust implementation of Jamis Buck’s excellent book <a href="http://raytracerchallenge.com/">the Ray Tracer Challenge</a>.</p>
+          </li>
+  </ul>
+      </div>
+    </main>
+    <footer>
+      <div class="content-bounds"></div>
+    </footer>
+  </body></html>
