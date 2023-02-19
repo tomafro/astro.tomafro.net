@@ -1,5 +1,5 @@
 ---
-import Layout from "../layouts/MainLayout.astro";
+import MainLayout from "../layouts/MainLayout.astro";
 import { getCollection } from "astro:content";
 
 const projects = await getCollection("projects");
@@ -11,7 +11,7 @@ const rendered = await Promise.all(
 );
 ---
 
-<Layout title="Projects">
+<MainLayout title="Projects">
   <h1>Projects</h1>
   <ul class="content-list">
     {
@@ -27,4 +27,4 @@ const rendered = await Promise.all(
       })
     }
   </ul>
-</Layout>
+</MainLayout>
