@@ -7,6 +7,9 @@ import sitemap from "@astrojs/sitemap";
 import mdx from "@astrojs/mdx";
 
 // https://astro.build/config
+import image from "@astrojs/image";
+
+// https://astro.build/config
 export default defineConfig({
   site: "https://tomafro.net",
   markdown: {
@@ -22,5 +25,5 @@ export default defineConfig({
       wrap: true
     }
   },
-  integrations: [sitemap(), mdx()]
+  integrations: [sitemap(), mdx(), image()]
 });
