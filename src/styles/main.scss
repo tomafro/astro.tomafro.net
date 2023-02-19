@@ -195,4 +195,15 @@ main {
       }
     }
   }
+
+  picture {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: var(--line-height);
+
+    img {
+      display: block;
+    }
+  }
 }
