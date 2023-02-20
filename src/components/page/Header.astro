@@ -1,0 +1,104 @@
+---
+import Icon from "../Icon.astro";
+---
+
+<style lang="scss">
+  header {
+    position: relative;
+    background: var(--accent-colour);
+    color: white;
+    font-family: var(--headline-font);
+    text-transform: uppercase;
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+
+      ul {
+        list-style: none;
+        display: flex;
+
+        li {
+          display: inline;
+        }
+      }
+
+      ul.sections {
+        li::after {
+          content: "•";
+          padding-left: 0.5rem;
+          padding-right: 0.5rem;
+        }
+
+        li:last-child::after {
+          content: "";
+          padding-left: 0;
+          padding-right: 0;
+        }
+      }
+
+      ul.icons {
+        li {
+          margin-left: 0.5rem;
+        }
+      }
+    }
+
+    margin-bottom: var(--line-height);
+
+    a {
+      color: inherit;
+      text-decoration: none;
+      transition: 0.15s;
+    }
+
+    a:hover {
+      opacity: 0.5;
+    }
+  }
+
+  header::before {
+    content: "";
+    display: block;
+    height: var(--line-height);
+    background: var(--accent-colour);
+    width: 50vw;
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin-left: -50vw;
+  }
+
+  header::after {
+    content: "";
+    display: block;
+    height: var(--line-height);
+    background: var(--accent-colour);
+    width: 50vw;
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-right: -50vw;
+  }
+</style>
+
+<header class={Astro.props.class}>
+  <nav>
+    <ul class="sections">
+      <li><a href="/">About</a></li>
+      <li><a href="/weeknotes/1-new-blog-who-dis">Weeknotes</a></li>
+      <li><a href="/projects">Projects</a></li>
+    </ul>
+    <ul class="icons">
+      <li>
+        <a href="https://hachyderm.io/@tomafro"><Icon name="mastodon" /></a>
+      </li>
+      <li>
+        <a href="https://instagram.com/tomafro"><Icon name="instagram" /></a>
+      </li>
+      <li>
+        <a href="https://github.com/tomafro"><Icon name="github" /></a>
+      </li>
+    </ul>
+  </nav>
+</header>
