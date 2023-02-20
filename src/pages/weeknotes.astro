@@ -1,0 +1,30 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+import { getCollection } from "astro:content";
+
+const weeknotes = await getCollection("weeknotes");
+const rendered = await Promise.all(
+  weeknotes.map(async (weeknote) => {
+    const { Content, headings } = await weeknote.render();
+    return { weeknote, Content, headings };
+  })
+);
+---
+
+<MainLayout title="Articles">
+  <h1>Articles</h1>
+  <ul class="content-list">
+    {
+      rendered.map(({ weeknote, Content, headings }) => {
+        return (
+          <li>
+            <h2>
+              <a href={"/weeknotes/" + weeknote.slug}>{weeknote.data.title}</a>
+            </h2>
+            <Content />
+          </li>
+        );
+      })
+    }
+  </ul>
+</MainLayout>

@@ -11,11 +11,19 @@ const projects = defineCollection({
 const articles = defineCollection({
   schema: z.object({
     title: z.string(),
-    date: z.string().transform(str => new Date(str)),
+    date: z.date().or(z.string().transform(str => new Date(str))),
+  })
+});
+
+const weeknotes = defineCollection({
+  schema: z.object({
+    title: z.string(),
+    date: z.date().or(z.string().transform(str => new Date(str))),
   })
 });
 
 export const collections = {
   'projects': projects,
   'articles': articles,
+  'weeknotes': weeknotes,
 };
