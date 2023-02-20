@@ -19,7 +19,11 @@ const rendered = await Promise.all(
         return (
           <li>
             <h2>
-              <a href={project.data.url}>{project.data.title}</a>
+              {project.data.private ? (
+                project.data.title + " (coming soon)"
+              ) : (
+                <a href={project.data.url}>{project.data.title}</a>
+              )}
             </h2>
             <Content />
           </li>

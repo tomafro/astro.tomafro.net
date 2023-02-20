@@ -4,6 +4,7 @@ const projects = defineCollection({
   schema: z.object({
     title: z.string(),
     url: z.string(),
+    private: z.boolean().optional(),
   })
 });
 

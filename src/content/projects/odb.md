@@ -1,6 +1,7 @@
 ---
 title: odb
 url: https://github.com/tomafro/odb
+private: true
 ---
 A simple CLI tool to query my [Obsidian](https://obsidian.md) documents, built in [rust](https://https://www.rust-lang.org/) with a [SQLite](https://www.sqlite.org/index.html) backend.
 
