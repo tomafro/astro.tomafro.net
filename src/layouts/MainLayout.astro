@@ -15,7 +15,7 @@ const { title } = Astro.props.frontmatter || Astro.props;
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="Tom Ward's personal website" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link
@@ -57,13 +57,11 @@ const { title } = Astro.props.frontmatter || Astro.props;
     <title>{title} - Tom Ward's Blog</title>
   </head>
   <body class="baseline">
-    <div class="content-bounds">
-      <Header />
-      <Main>
-        <slot />
-      </Main>
-      <Footer />
-    </div>
+    <Header maxWidth="50rem" gutterSize="1rem" />
+    <Main maxWidth="50rem" gutterSize="1rem">
+      <slot />
+    </Main>
+    <Footer maxWidth="50rem" gutterSize="1rem" />
   </body>
 </html>
 <style is:global></style>
