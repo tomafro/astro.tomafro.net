@@ -12,6 +12,7 @@ const articles = defineCollection({
   schema: z.object({
     title: z.string(),
     date: z.date().or(z.string().transform(str => new Date(str))),
+    isDraft: z.boolean().optional(),
   })
 });
 
@@ -19,6 +20,7 @@ const weeknotes = defineCollection({
   schema: z.object({
     title: z.string(),
     date: z.date().or(z.string().transform(str => new Date(str))),
+    isDraft: z.boolean().optional(),
   })
 });
 

@@ -1,8 +1,7 @@
 ---
 import MainLayout from "../layouts/MainLayout.astro";
-import { getCollection } from "astro:content";
+import { weeknotes } from "../lib/weeknote.js";
 
-const weeknotes = await getCollection("weeknotes");
 const rendered = await Promise.all(
   weeknotes.map(async (weeknote) => {
     const { Content, headings } = await weeknote.render();
@@ -11,7 +10,7 @@ const rendered = await Promise.all(
 );
 ---
 
-<MainLayout title="Articles">
+<MainLayout title="Weeknotes">
   <h1>Articles</h1>
   <ul class="content-list">
     {
