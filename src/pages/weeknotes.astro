@@ -1,5 +1,7 @@
 ---
 import MainLayout from "../layouts/MainLayout.astro";
+import Article from "../layouts/Article.astro";
+import Date from "../components/Date.astro";
 import { weeknotes } from "../lib/weeknote.js";
 
 const rendered = await Promise.all(
@@ -11,19 +13,19 @@ const rendered = await Promise.all(
 ---
 
 <MainLayout title="Weeknotes">
-  <h1>Articles</h1>
-  <ul class="content-list">
-    {
-      rendered.map(({ weeknote, Content, headings }) => {
-        return (
-          <li>
+  {
+    rendered.map(({ weeknote, Content, headings }) => {
+      return (
+        <article>
+          <hgroup>
+            <h1>{weeknote.titleWithWeek}</h1>
             <h2>
-              <a href={"/weeknotes/" + weeknote.slug}>{weeknote.data.title}</a>
+              <Date date={weeknote.date} />
             </h2>
-            <Content />
-          </li>
-        );
-      })
-    }
-  </ul>
+          </hgroup>
+          <Content />
+        </article>
+      );
+    })
+  }
 </MainLayout>

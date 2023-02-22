@@ -1,6 +1,5 @@
 ---
 import Icon from "../Icon.astro";
-import { weeknotes } from "../../lib/weeknote.js";
 const { maxWidth, gutterSize } = Astro.props;
 ---
 
@@ -70,7 +69,7 @@ const { maxWidth, gutterSize } = Astro.props;
     <nav>
       <ul class="sections">
         <li><a href="/">About</a></li>
-        <li><a href={"/weeknotes/" + weeknotes[0].slug}>Weeknotes</a></li>
+        <li><a href="/weeknotes">Weeknotes</a></li>
         <li><a href="/projects">Projects</a></li>
       </ul>
       <ul class="icons">
