@@ -2,9 +2,16 @@
 import { Picture } from "@astrojs/image/components";
 const { src, alt, height } = Astro.props;
 const { width: imageWidth, height: imageHeight } = src;
+const aspectRatio = imageWidth / imageHeight;
+const width = height * aspectRatio;
 ---
 
 <style lang="scss">
+  div {
+    display: flex;
+    justify-content: center;
+  }
+
   figure {
     display: inline-block;
     padding: 4px;
@@ -16,12 +23,20 @@ const { width: imageWidth, height: imageHeight } = src;
   }
 </style>
 
-<figure>
-  <Picture
-    src={src}
-    alt={alt}
-    height={height}
-    widths={[100, 200, 400, 800, 1600]}
-    aspectRatio={imageWidth / imageHeight}
-  />
-</figure>
+<div>
+  <figure>
+    <Picture
+      src={src}
+      alt={alt}
+      width={width}
+      height={height}
+      widths={[
+        imageWidth,
+        Math.round(imageWidth / 2),
+        Math.round(imageWidth / 4),
+        Math.round(imageWidth / 8),
+      ]}
+      aspectRatio={imageWidth / imageHeight}
+    />
+  </figure>
+</div>
