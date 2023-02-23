@@ -1,8 +1,8 @@
 ---
-import MainLayout from "../layouts/MainLayout.astro";
-import Article from "../layouts/Article.astro";
-import Date from "../components/Date.astro";
-import { weeknotes } from "../lib/weeknote.js";
+import MainLayout from "@layouts/MainLayout.astro";
+import Article from "@layouts/Article.astro";
+import Date from "@components/Date.astro";
+import { weeknotes } from "@lib/weeknote.js";
 
 const rendered = await Promise.all(
   weeknotes.map(async (weeknote) => {

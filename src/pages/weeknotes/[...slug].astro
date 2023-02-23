@@ -1,5 +1,5 @@
 ---
-import Article from "../../layouts/Article.astro";
+import Article from "@layouts/Article.astro";
 import { getCollection } from "astro:content";
 export async function getStaticPaths() {
   const weeknotes = await getCollection("weeknotes");
