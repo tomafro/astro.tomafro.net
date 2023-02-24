@@ -62,7 +62,7 @@ class Weeknote extends Entry {
   }
 
   get titleWithWeek() {
-    return `Week X ${this.week}: ${this.title}`;
+    return `Week ${this.week}: ${this.title}`;
   }
 }
 
