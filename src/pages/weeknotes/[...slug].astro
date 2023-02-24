@@ -1,20 +1,15 @@
 ---
 import Article from "@layouts/Article.astro";
-import { getCollection } from "astro:content";
+import { weeknotes } from "@lib/collections";
+
 export async function getStaticPaths() {
-  const weeknotes = await getCollection("weeknotes");
-  return weeknotes.map((entry) => ({
-    params: { slug: entry.slug },
-    props: { entry },
-  }));
+  return weeknotes.wherePublished().map((entry) => entry.staticPath);
 }
+
 const { entry } = Astro.props;
 const { Content } = await entry.render();
-const { title, date } = entry.data;
-const week = parseInt(entry.slug);
-const titleWithWeek = `Week ${week}: ${title}`;
 ---
 
-<Article title={titleWithWeek} date={date}>
+<Article title={entry.titleWithWeek} date={entry.date}>
   <Content />
 </Article>
