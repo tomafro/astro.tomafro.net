@@ -56,6 +56,17 @@ class Entry {
   }
 }
 
+class Article extends Entry {
+  get date() {
+    return new Date(this.slug.substring(0, 10));
+  }
+
+  get formattedMonth() {
+    const month = this.date.getMonth() + 1;
+    return month < 10 ? `0${month}` : month;
+  }
+}
+
 class Weeknote extends Entry {
   get week() {
     return parseInt(this.slug);
@@ -67,3 +78,4 @@ class Weeknote extends Entry {
 }
 
 export const weeknotes = await Collection.load("weeknotes", Weeknote);
+export const articles = await Collection.load("articles", Article);

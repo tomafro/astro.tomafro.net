@@ -11,7 +11,7 @@
     <link rel="preload" href="/fonts/bitter-italic.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="/fonts/fira-code.woff2" as="font" type="font/woff2" crossorigin>
     <meta name="generator" content="Astro v2.0.14">
-    <title>Articles - Tom Ward's Blog</title>
+    <title>Infinite sequences in ruby - Tom Ward's Blog</title>
   <link rel="stylesheet" href="/_astro/_...slug_.e69cd1cc.css" /></head>
   <body class="baseline">
     
@@ -53,71 +53,14 @@
     
 <main class="astro-UGUFLI7P" style="--maxWidth: 50rem;--gutterSize: 0.5rem;">
   <div class="bounds astro-UGUFLI7P">
-    <h1>Articles</h1><ul class="content-list">
-    <li>
-            <h2>
-              <a href="2012-02-29-working-inside-government">Working inside government</a>
-            </h2>
-            <p>Since September, I and the other <a href="http://gofreerange.com">Go Free Range</a> guys have been working for the government.  We’ve been helping the able and growing <a href="http://digital.cabinetoffice.gov.uk/">Government Digital Service</a> to build <a href="https://github.com/alphagov/whitehall">whitehall</a>, our code name for the <a href="https://www.gov.uk/government">Inside Government section of gov.uk</a>.  Yesterday we removed the password and opened our doors to the public.</p>
-<div class="browsershots"><a href="https://www.gov.uk/government/organisations/department-for-international-development"><img class="browsershot" src="/images/dfid.thumb.png"/></a><a href="https://www.gov.uk/government/policies/human-rights"><img class="browsershot" src="/images/promoting-human-rights.thumb.png"/></a><a href="https://www.gov.uk/government/organisations"><img class="browsershot" src="/images/departments.thumb.png"/></a></div>
-<p>For those who don’t know, <a href="https://www.gov.uk">gov.uk</a> is the UK government’s attempt to not only consolidate government websites to a single domain, but also build these sites in the right way.  That means <a href="https://www.pivotaltracker.com/projects/367813">public</a>, <a href="https://github.com/alphagov/whitehall">open source</a>, continual delivery and more.</p>
-<p>While the first part of <a href="https://www.gov.uk">gov.uk</a> focussed on helping citizens, <a href="https://www.gov.uk/government">Inside Government</a> is about the business of government.  <a href="https://www.gov.uk/government/policy-topics">What policies</a> the government has, <a href="https://www.gov.uk/government/policies/launching-the-single-domain">how it’s implementing them</a>, not to mention the <a href="https://www.gov.uk/government/news-and-speeches">news and speeches</a>, <a href="https://www.gov.uk/government/publications">publications</a>, <a href="https://www.gov.uk/government/consultations">consultations</a> and other things the government does each day.</p>
-<p>It’s only the first release of many, a small glimpse into what will one day be.  How it ends up will be shaped by <a href="https://www.gov.uk/feedback">feedback from the people who use it</a>.</p>
-          </li><li>
-            <h2>
-              <a href="2012-06-21-tip-bundler-with-binstubs">Tip: Bundler with --binstubs</a>
-            </h2>
-            <p>In <a href="/2011/09/tip-automatic-bundle-exec-for-rake-and-more">a previous blog</a>, I wrote how I’d aliased commands such as <code>rake</code>, <code>cap</code> and <code>rspec</code> to run either with or without <code>bundle exec</code>, based on the presence of a <code>Gemfile</code>.  I gave up on that a while ago.  Instead, I’ve started installing all my bundles like this:</p>
-<pre class="astro-code" style="background-color:var(--astro-code-color-background);overflow-x:auto;white-space:pre-wrap;word-wrap:break-word"><code><span class="line"><span style="color:var(--astro-code-color-text)">bundle install --path .bundle/gems --binstubs .bundle/bin</span></span></code></pre>
-<p>I often use features like <code>bundle open &lt;gem&gt;</code> to debug and edit failing gems, so I like to keep each application’s gems isolated.  The <code>--path .bundle/gems</code> installs them within an application’s <code>.bundle</code> directory.  As well as isolating my gems, it has the added benefit that I can blow away the gemset with <code>rm -rf .bundle</code></p>
-<p>The <code>--binstubs .bundle/bin</code> option installs bundle-aware scripts for each command provided by a bundled gem.  For example, a bundle including <code>rake</code> will generate a <code>.bundle/bin/rake</code> script.  By adding <code>./.bundle/bin</code> to the front of my environment <code>PATH</code>, the bundled version of <code>rake</code> will run when I’m in the application folder.  I never have to type <code>bundle exec</code>!</p>
-<p>Obviously typing that long <code>bundle install</code> command each time is tedious, so I’ve aliased it to <code>bi</code>:</p>
-<pre class="astro-code" style="background-color:var(--astro-code-color-background);overflow-x:auto;white-space:pre-wrap;word-wrap:break-word"><code><span class="line"><span style="color:var(--astro-code-token-function)">alias</span><span style="color:var(--astro-code-color-text)"> bi=</span><span style="color:var(--astro-code-token-string-expression)">&#39;bundle install --path .bundle/gems --binstubs .bundle/bin&#39;</span></span></code></pre>
-<p>I’ve been using these options for a few months, and so far I’m very happy with them.</p>
-          </li><li>
-            <h2>
-              <a href="2012-11-16-past-present-future">Past, Present and Future</a>
-            </h2>
-            <p>For me and the rest of <a href="https://gofreerange.com">Go Free Range</a>, the big event this week was the public launch of <a href="https://www.gov.uk/government">Inside Government</a>, the government focussed part of <a href="https://www.gov.uk">GOV.UK</a>.  Inside Government aims to replace the majority of government department and agency websites with a single place for all news, policies, publications and consultations.  On Wednesday, the first two department websites (for the <a href="https://www.gov.uk/dft">Department for Transport</a> and the <a href="https://www.gov.uk/dclg">Department for Communities and Local Government</a>) were moved across.</p>
-<div class="browsershots"><a href="https://www.gov.uk/government"><img class="browsershot" src="/images/inside-government.png"/></a><a href="https://www.gov.uk/government/organisations/department-for-communities-and-local-government"><img class="browsershot" src="/images/inside-government-dclg.png"/></a><a href="https://www.gov.uk/government/policies/bringing-people-together-in-strong-united-communities"><img class="browsershot" src="/images/inside-government-policy.png"/></a></div>
-<p>We’ve been working on this project for 14 months, from the <a href="https://github.com/alphagov/whitehall/commit/8fa2772">initial commit</a>, through the <a href="http://tomafro.net/2012/02/working-inside-government">beta launch</a> right up until today.  I’ve enjoyed it, but it has been extremely hard work.  And although there are hundreds of things I’d still like to change, there are hundreds more I’m proud of.</p>
-<h2 id="harmonia">Harmonia</h2>
-<p>As well as <a href="https://www.gov.uk/government">Inside Government</a>, we’ve also been slowly inviting people to <a href="https://harmonia.io">Harmonia</a>, our ‘virtual office manager’.  In case you haven’t read the <a href="http://gofreerange.com/blog">Go Free Range blog</a>, <a href="https://harmonia.io">Harmonia</a> is a tool we use to assign all the tasks needed to keep our company running.  Rather than use a schedule, each piece of work is assigned in a way designed to be both random and fair.</p>
-<div class="browsershots"><a href="https://harmonia.io"><img class="browsershot" src="/images/harmonia-signup.png"/></a><a href="https://harmonia.io"><img class="browsershot" src="/images/harmonia-dashboard.png"/></a><a href="https://harmonia.io"><img class="browsershot" src="/images/harmonia-task.png"/></a></div>
-<p>One variation or another of <a href="https://harmonia.io">Harmonia</a> has been helping us for well over a year, but now we’ve built a web app for everyone to use.  It’s still a bit rough around the edges, but we’d love it if people <a href="https://harmonia.io">signed up</a> and gave us feedback.  We’re building this because we want to learn how to build better products, for the future of <a href="http://gofreerange.com">Go Free Range</a>.</p>
-          </li><li>
-            <h2>
-              <a href="2012-12-27-deploying-harmonia-with-recap">Deploying a rails app from scratch using recap</a>
-            </h2>
-            <p>If you follow <a href="http://gofreerange.com/blog">our company blog</a> you’ll know that we’re working on <a href="http://harmonia.io">Harmonia</a>, our virtual office manager.  I thought I’d explain how we use <a href="https://github.com/freerange/recap">recap</a> to deploy harmonia, to show how easy and fast <a href="https://github.com/freerange/recap">recap</a> makes application deployment.</p>
-<p><a href="https://harmonia.io">Harmonia</a> is a fairly standard rails application.  As well as a web front-end, it has two other processes.  A queue <code>worker</code> is used to send outgoing emails, whilst the core of the application is the <code>ticker</code>; a process which ‘ticks’ every minute, assigning tasks to team members.  We use <a href="https://github.com/ddollar/foreman">foreman</a> to declare these processes in the following <code>Procfile</code>:</p>
-<pre class="astro-code" style="background-color:var(--astro-code-color-background);overflow-x:auto;white-space:pre-wrap;word-wrap:break-word"><code><span class="line"><span style="color:var(--astro-code-token-keyword)">web</span><span style="color:var(--astro-code-token-keyword)">:</span><span style="color:var(--astro-code-color-text)"> </span><span style="color:var(--astro-code-token-string-expression)">bundle exec unicorn -p $PORT -c unicorn.conf.rb</span></span>
-<span class="line"><span style="color:var(--astro-code-token-keyword)">ticker</span><span style="color:var(--astro-code-token-keyword)">:</span><span style="color:var(--astro-code-color-text)"> </span><span style="color:var(--astro-code-token-string-expression)">bundle exec rails runner script/ticker.rb</span></span>
-<span class="line"><span style="color:var(--astro-code-token-keyword)">worker</span><span style="color:var(--astro-code-token-keyword)">:</span><span style="color:var(--astro-code-color-text)"> </span><span style="color:var(--astro-code-token-string-expression)">bundle exec rake environment resque:work QUEUE=assignments VVERBOSE=1</span></span></code></pre>
-<p>All of these processes touch application code, so whenever we deploy a new version of the app (which we do frequently) they need to be restarted.  Our app also has a database with associated migrations, uses environment variables like <code>DATABASE_URL</code> for configuration, and has a number of gem dependencies managed by bundler.</p>
-<p>This is all handled by <a href="https://github.com/freerange/recap">recap</a>.</p>
-<h2 id="getting-started---adding-recap-to-the-project">Getting started - adding recap to the project</h2>
-<p>Using recap with a rails project is simple.  First add <code>gem &#39;recap&#39;</code> to the <code>Gemfile</code> and run <code>bundle install</code>.  Next run <code>bundle exec recap setup</code>, which will generate a <code>Capfile</code>, guessing values for the git repository and app name.  You should check these values and change the server to point to your app server.  As an example, the complete <code>Capfile</code> for harmonia is shown below:</p>
-<pre class="astro-code" style="background-color:var(--astro-code-color-background);overflow-x:auto;white-space:pre-wrap;word-wrap:break-word"><code><span class="line"><span style="color:var(--astro-code-token-keyword)">require</span><span style="color:var(--astro-code-color-text)"> </span><span style="color:var(--astro-code-token-string-expression)">&#39;recap/recipes/rails&#39;</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:var(--astro-code-color-text)">set :application</span><span style="color:var(--astro-code-token-punctuation)">,</span><span style="color:var(--astro-code-color-text)"> </span><span style="color:var(--astro-code-token-string-expression)">&#39;harmonia&#39;</span></span>
-<span class="line"><span style="color:var(--astro-code-color-text)">set :repository</span><span style="color:var(--astro-code-token-punctuation)">,</span><span style="color:var(--astro-code-color-text)"> </span><span style="color:var(--astro-code-token-string-expression)">&#39;git@github.com:freerange/harmonia.git&#39;</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:var(--astro-code-color-text)">server </span><span style="color:var(--astro-code-token-string-expression)">&#39;bison.harmonia.io&#39;</span><span style="color:var(--astro-code-token-punctuation)">,</span><span style="color:var(--astro-code-color-text)"> :app</span></span></code></pre>
-<p>Applications deployed with <a href="https://github.com/freerange/recap">recap</a> need their own user, owning all files and processes.  Assuming we can <code>ssh</code> into our server and are listed as a <code>sudoer</code>, we can create this user automatically  running <code>cap bootstrap</code>.  This will also add our own <code>ssh</code> user to the application group, allowing it to deploy the application.</p>
-<p>Next we can set any environment variables we need for configuration.  These are loaded in the application user’s <code>.profile</code>, so are available to all processes started by <a href="https://github.com/freerange/recap">recap</a>.  In harmonia we set our smtp credentials, the server port, some api keys and more, using commands like <code>cap env:set PORT=7000</code> and <code>cap env:set SMTP_PASSWORD=secret</code>.</p>
-<p>The app is now almost ready to deploy.  We can prepare it for deployment with <code>cap deploy:setup</code>, which clones the code repository, installs our gem bundle, sets up the database and precompiles our assets.</p>
-<p>Finally, running <code>cap deploy</code> will start the app for the first time, launching each process defined in the <code>Procfile</code> with the environment variables we previously set.</p>
-<h2 id="really-fast-deployments">Really fast deployments</h2>
-<p>While <a href="https://github.com/freerange/recap">recap</a> makes it very easy to get apps up and running the first time, it comes into its doing subsequent deployments.  At <a href="http://gofreerange.com">Go Free Range</a> we like to deploy apps we’re working on very frequently.  One thing that helps ensure we do this is making each deployment as fast as it can be.</p>
-<p>Using <code>git</code> as recap does is already a very quick way to get code changes onto servers, but recap takes things a step further.  By testing to see which files have changed it knows which tasks can be skipped.  For example, database migrations won’t be run if <code>db/schema.rb</code> has not changed; the gem bundle won’t be re-installed unless <code>Gemfile.lock</code> has been updated, and foreman process scripts won’t be exported if the <code>Procfile</code> is unchanged.  In fact, if these files don’t exist, these tasks will never run at all.</p>
-<h2 id="the-future">The future</h2>
-<p>Using <a href="https://github.com/freerange/recap">recap</a> with <a href="https://harmonia.io">Harmonia</a> has made our deployment process very fast and simple.  When the main harmonia server became over-burdened and we decided to commission a new machine dedicated to harmonia, recap made that process quick and painless.  As well as harmonia, recap is also used to deploy <a href="http://gofreerange.com">the Go Free Range website</a>, <a href="http://tomafro.net">this blog</a>, and a number of other small sites and projects where it has proven itself well.  For larger projects, there are some features (such as more control as to what processes run where) that are missing, but I plan to add these in the next release.  For all other sites, recap has proven itself a lightweight and capable alternative to the standard Capistrano deployment recipes.</p>
-          </li><li>
-            <h2>
-              <a href="2012-12-31-infinite-sequences-in-ruby">Infinite sequences in ruby</a>
-            </h2>
-            <p>One feature of <a href="https://harmonia.io">harmonia</a> is tasks that recur on a schedule, e.g. every Thursday, or on the 30th day of each month.  For these tasks we need to know not just when they’ll next occur, but also things like the next 4 occurrences, or all occurrences this month.</p>
+    <article>
+    <hgroup>
+      <h1>Infinite sequences in ruby</h1>
+      <h2>
+            <time datetime="2012-12-31T00:00:00.000Z">December 31st 2012</time>
+          </h2>
+    </hgroup>
+    <p>One feature of <a href="https://harmonia.io">harmonia</a> is tasks that recur on a schedule, e.g. every Thursday, or on the 30th day of each month.  For these tasks we need to know not just when they’ll next occur, but also things like the next 4 occurrences, or all occurrences this month.</p>
 <p>To do this we’ve used a technique more common in <a href="http://clojure.org/">clojure</a>: using an infinite sequence.</p>
 <h2 id="defining-simple-infinite-sequences">Defining simple infinite sequences</h2>
 <p>Ruby 1.9 and above let us define infinite sequences using the <code>Enumerator</code> class.  A simple example is the sequence of integers:</p>
@@ -253,49 +196,7 @@
 <span class="line"><span style="color:var(--astro-code-token-keyword)">&gt;&gt;</span><span style="color:var(--astro-code-color-text)"> odd_squares</span><span style="color:var(--astro-code-token-punctuation)">.</span><span style="color:var(--astro-code-color-text)">drop(</span><span style="color:var(--astro-code-token-constant)">10</span><span style="color:var(--astro-code-color-text)">)</span><span style="color:var(--astro-code-token-punctuation)">.</span><span style="color:var(--astro-code-color-text)">take(</span><span style="color:var(--astro-code-token-constant)">10</span><span style="color:var(--astro-code-color-text)">)</span></span>
 <span class="line"><span style="color:var(--astro-code-token-keyword)">=&gt;</span><span style="color:var(--astro-code-color-text)"> [</span><span style="color:var(--astro-code-token-constant)">441</span><span style="color:var(--astro-code-token-punctuation)">,</span><span style="color:var(--astro-code-color-text)"> </span><span style="color:var(--astro-code-token-constant)">529</span><span style="color:var(--astro-code-token-punctuation)">,</span><span style="color:var(--astro-code-color-text)"> </span><span style="color:var(--astro-code-token-constant)">625</span><span style="color:var(--astro-code-token-punctuation)">,</span><span style="color:var(--astro-code-color-text)"> </span><span style="color:var(--astro-code-token-constant)">729</span><span style="color:var(--astro-code-token-punctuation)">,</span><span style="color:var(--astro-code-color-text)"> </span><span style="color:var(--astro-code-token-constant)">841</span><span style="color:var(--astro-code-token-punctuation)">,</span><span style="color:var(--astro-code-color-text)"> </span><span style="color:var(--astro-code-token-constant)">961</span><span style="color:var(--astro-code-token-punctuation)">,</span><span style="color:var(--astro-code-color-text)"> </span><span style="color:var(--astro-code-token-constant)">1089</span><span style="color:var(--astro-code-token-punctuation)">,</span><span style="color:var(--astro-code-color-text)"> </span><span style="color:var(--astro-code-token-constant)">1225</span><span style="color:var(--astro-code-token-punctuation)">,</span><span style="color:var(--astro-code-color-text)"> </span><span style="color:var(--astro-code-token-constant)">1369</span><span style="color:var(--astro-code-token-punctuation)">,</span><span style="color:var(--astro-code-color-text)"> </span><span style="color:var(--astro-code-token-constant)">1521</span><span style="color:var(--astro-code-color-text)">]</span></span></code></pre>
 <p>Using only a few simple methods, we’ve been able to answer a complicated (though contrived) question, what are the second ten odd square numbers?  This particular answer may not be interesting, but the technique of defining and deriving infinite sequences is much more general and useful.  This is only a small sample of what you can do with them.</p>
-          </li><li>
-            <h2>
-              <a href="2023-02-16-using-direnv-to-make-life-easier">Using direnv to make life easier</a>
-            </h2>
-            <p>One of the tools I find most useful for local development is <a href="https://direnv.net/">direnv</a>. It’s one of a number of similar utilities that hooks into your shell, and alters the environment when you enter or leave a directory.</p>
-<p>To give you an example, if you have a folder <code>~/example</code> with the file <code>~/example/.envrc</code></p>
-<pre class="astro-code" style="background-color:var(--astro-code-color-background);overflow-x:auto;white-space:pre-wrap;word-wrap:break-word"><code><span class="line"><span style="color:var(--astro-code-token-keyword)">export</span><span style="color:var(--astro-code-color-text)"> EXAMPLE_NAME=</span><span style="color:var(--astro-code-token-string-expression)">&quot;Danie&quot;</span></span></code></pre>
-<p>Then when in your shell session you <code>cd</code> into <code>~/example</code> it will export the <code>EXAMPLE_NAME</code> variable:</p>
-<pre class="astro-code" style="background-color:var(--astro-code-color-background);overflow-x:auto;white-space:pre-wrap;word-wrap:break-word"><code><span class="line"><span style="color:var(--astro-code-color-text)">❯ </span><span style="color:var(--astro-code-token-function)">cd</span><span style="color:var(--astro-code-color-text)"> </span><span style="color:var(--astro-code-token-keyword)">~</span><span style="color:var(--astro-code-color-text)">/example</span></span>
-<span class="line"><span style="color:var(--astro-code-color-text)">direnv: loading </span><span style="color:var(--astro-code-token-keyword)">~</span><span style="color:var(--astro-code-color-text)">/example/.envrc</span></span>
-<span class="line"><span style="color:var(--astro-code-color-text)">direnv: </span><span style="color:var(--astro-code-token-keyword)">export</span><span style="color:var(--astro-code-color-text)"> +EXAMPLE_NAME</span></span>
-<span class="line"><span style="color:var(--astro-code-color-text)">❯ </span><span style="color:var(--astro-code-token-function)">echo</span><span style="color:var(--astro-code-color-text)"> Hello $EXAMPLE_NAME</span></span>
-<span class="line"><span style="color:var(--astro-code-color-text)">Hello Danie</span></span></code></pre>
-<p>Just as importantly, when you navigate away, the variable will be unset:</p>
-<pre class="astro-code" style="background-color:var(--astro-code-color-background);overflow-x:auto;white-space:pre-wrap;word-wrap:break-word"><code><span class="line"><span style="color:var(--astro-code-color-text)">❯ </span><span style="color:var(--astro-code-token-function)">cd</span><span style="color:var(--astro-code-color-text)"> </span><span style="color:var(--astro-code-token-keyword)">~</span></span>
-<span class="line"><span style="color:var(--astro-code-color-text)">direnv: unloading</span></span>
-<span class="line"><span style="color:var(--astro-code-color-text)">❯ </span><span style="color:var(--astro-code-token-function)">echo</span><span style="color:var(--astro-code-color-text)"> Hello $EXAMPLE_NAME</span></span>
-<span class="line"><span style="color:var(--astro-code-color-text)">Hello</span></span></code></pre>
-<h2 id="simple-use-cases">Simple use cases</h2>
-<p>More command line tools than you might think make use of environment variables, as of course does your shell. There are some obvious and less obvious uses for direnv. Here are a few that I use:</p>
-<h3 id="quickly-launch-the-correct-development-database">QUICKLY LAUNCH THE CORRECT DEVELOPMENT DATABASE</h3>
-<p>Setting <a href="https://www.postgresql.org/docs/current/libpq-envars.html">Postgres Environment Variables</a> <code>PGDATABASE</code>, <code>PGUSER</code>, and <code>PGPASSWORD</code><sup><a href="#user-content-fn-1" id="user-content-fnref-1" data-footnote-ref="" aria-describedby="footnote-label">1</a></sup> to match my development database credentials means that when in a project folder, <code>psql</code> will open the correct database.</p>
-<h3 id="securely-use-aws-secrets-via-1password">SECURELY USE AWS SECRETS (via 1Password)</h3>
-<p>Unlike a development database password, I’m more careful with AWS credentials. While <code>AWS_PROFILE</code>, <code>AWS_REGION</code>, and <code>AWS_ACCESS_KEY_ID</code> are safe to share, I prefer to keep <code>AWS_SECRET_ACCESS_KEY</code> values out of my <code>.envrc</code> files. But that doesn’t mean I can’t use them. I store these secrets in 1Password and use the CLI to retrieve them. So my <code>.envrc</code> looks like this:</p>
-<pre class="astro-code" style="background-color:var(--astro-code-color-background);overflow-x:auto;white-space:pre-wrap;word-wrap:break-word"><code><span class="line"><span style="color:var(--astro-code-token-keyword)">export</span><span style="color:var(--astro-code-color-text)"> AWS_REGION=eu-west-2</span></span>
-<span class="line"><span style="color:var(--astro-code-token-keyword)">export</span><span style="color:var(--astro-code-color-text)"> AWS_ACCESS_KEY_ID=AKABCDEFGHIJKLMNO</span></span>
-<span class="line"><span style="color:var(--astro-code-token-keyword)">export</span><span style="color:var(--astro-code-color-text)"> AWS_SECRET_ACCESS_KEY=</span><span style="color:var(--astro-code-token-string-expression)">&quot;$(op </span><span style="color:var(--astro-code-token-function)">read</span><span style="color:var(--astro-code-token-string-expression)"> op://dev/aws/SECRET_ACCESS_KEY)&quot;</span></span></code></pre>
-<p>The environment variable is still set to the secret, but the secret itself is stored more securely than in an unencrypted <code>.envrc</code>.</p>
-<h3 id="add-arbitrary-commands-to-the-path">Add arbitrary commands to the path</h3>
-<p>In one of the clojure projects I work on, the command I use start the REPL is:</p>
-<pre class="astro-code" style="background-color:var(--astro-code-color-background);overflow-x:auto;white-space:pre-wrap;word-wrap:break-word"><code><span class="line"><span style="color:var(--astro-code-color-text)">clojure -A:dev:test:backend:backend-test:system-test:repl</span></span></code></pre>
-<p>To save having to type this (or more accurately — search the shell history), I put it in a very short script, saved (and <code>.gitignored</code>) in <code>.local/bin/repl</code>. Then in that project’s <code>.envrc</code> I’ve simply put:</p>
-<pre class="astro-code" style="background-color:var(--astro-code-color-background);overflow-x:auto;white-space:pre-wrap;word-wrap:break-word"><code><span class="line"><span style="color:var(--astro-code-color-text)">PATH_add ./.local/bin</span></span></code></pre>
-<p>When in this project folder, typing <code>repl</code> launches the repl.</p>
-<section data-footnotes="" class="footnotes"><p class="sr-only" id="footnote-label">Footnotes</p>
-<ol>
-<li id="user-content-fn-1">
-<p>If I’d set one. YOLO. <a href="#user-content-fnref-1" data-footnote-backref="" class="data-footnote-backref" aria-label="Back to content">↩</a></p>
-</li>
-</ol>
-</section>
-          </li>
-  </ul>
+  </article>
   </div>
 </main>
     
