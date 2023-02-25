@@ -5,7 +5,7 @@ draft: true
 
 Recently at [farill.io](https://farill.io) we've rewritten our CI pipeline, moving from [CircleCI](https://circleci.com/) to [buildkite](https://buildkite.com). Our builds should finish as quickly as possible, so we've split them into several discrete steps, many of which can run in parallel. Each step runs in a dedicated docker container (via the [buildkite docker-compose plugin](https://github.com/buildkite-plugins/docker-compose-buildkite-plugin)), sharing nothing with other steps in the pipeline. To keep the build fast they must start up as fast as possible, so we use a special builder image that already includes all tools and dependencies (such as gems, javascript modules, clojure libraries, etc).
 
-```Dockerfile
+```docker
 FROM ubuntu:20.04 AS base
 
 # ...install all the tools needed for the build, such as
