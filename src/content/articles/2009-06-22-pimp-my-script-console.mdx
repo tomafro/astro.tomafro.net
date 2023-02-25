@@ -6,7 +6,8 @@ For a long time I've had [an .irbrc file](http://github.com/tomafro/dotfiles/blo
 
 Adding [machinist](http://github.com/notahat/machinist/tree/master) isn't as simple as just requiring my blueprints though -- they require my ActiveRecord models, which aren't available when `.irbrc` is loaded.  Luckily the solution is simple -- just add a couple of lines to the configuration in environment.rb:
 
-```rubyRails::Initializer.run do |config|
+```ruby
+Rails::Initializer.run do |config|
   if defined?(IRB)
     config.gem 'faker'
     config.gem 'notahat-machinist', :lib => 'machinist', :source => "http://gems.github.com"

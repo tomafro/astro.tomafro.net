@@ -6,7 +6,7 @@ import { weeknotes } from "@lib/collections.js";
 const rendered = await Promise.all(
   weeknotes
     .wherePublished()
-    .byDate()
+    .byMostRecent()
     .map(async (weeknote) => {
       const { Content, headings } = await weeknote.render();
       return { weeknote, Content, headings };
