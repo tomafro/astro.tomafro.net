@@ -56,7 +56,9 @@
     <h1>Articles</h1><ul class="content-list">
     <li>
             <h2>
-              <a href="2012-02-29-working-inside-government">Working inside government</a>
+              <a href="2012/02/working-inside-government">
+                Working inside government
+              </a>
             </h2>
             <p>Since September, I and the other <a href="http://gofreerange.com">Go Free Range</a> guys have been working for the government.  We’ve been helping the able and growing <a href="http://digital.cabinetoffice.gov.uk/">Government Digital Service</a> to build <a href="https://github.com/alphagov/whitehall">whitehall</a>, our code name for the <a href="https://www.gov.uk/government">Inside Government section of gov.uk</a>.  Yesterday we removed the password and opened our doors to the public.</p>
 <div class="browsershots"><a href="https://www.gov.uk/government/organisations/department-for-international-development"><img class="browsershot" src="/images/dfid.thumb.png"/></a><a href="https://www.gov.uk/government/policies/human-rights"><img class="browsershot" src="/images/promoting-human-rights.thumb.png"/></a><a href="https://www.gov.uk/government/organisations"><img class="browsershot" src="/images/departments.thumb.png"/></a></div>
@@ -65,7 +67,9 @@
 <p>It’s only the first release of many, a small glimpse into what will one day be.  How it ends up will be shaped by <a href="https://www.gov.uk/feedback">feedback from the people who use it</a>.</p>
           </li><li>
             <h2>
-              <a href="2012-06-21-tip-bundler-with-binstubs">Tip: Bundler with --binstubs</a>
+              <a href="2012/06/tip-bundler-with-binstubs">
+                Tip: Bundler with --binstubs
+              </a>
             </h2>
             <p>In <a href="/2011/09/tip-automatic-bundle-exec-for-rake-and-more">a previous blog</a>, I wrote how I’d aliased commands such as <code>rake</code>, <code>cap</code> and <code>rspec</code> to run either with or without <code>bundle exec</code>, based on the presence of a <code>Gemfile</code>.  I gave up on that a while ago.  Instead, I’ve started installing all my bundles like this:</p>
 <pre class="astro-code" style="background-color:var(--astro-code-color-background);overflow-x:auto;white-space:pre-wrap;word-wrap:break-word"><code><span class="line"><span style="color:var(--astro-code-color-text)">bundle install --path .bundle/gems --binstubs .bundle/bin</span></span></code></pre>
@@ -76,7 +80,9 @@
 <p>I’ve been using these options for a few months, and so far I’m very happy with them.</p>
           </li><li>
             <h2>
-              <a href="2012-11-16-past-present-future">Past, Present and Future</a>
+              <a href="2012/11/past-present-future">
+                Past, Present and Future
+              </a>
             </h2>
             <p>For me and the rest of <a href="https://gofreerange.com">Go Free Range</a>, the big event this week was the public launch of <a href="https://www.gov.uk/government">Inside Government</a>, the government focussed part of <a href="https://www.gov.uk">GOV.UK</a>.  Inside Government aims to replace the majority of government department and agency websites with a single place for all news, policies, publications and consultations.  On Wednesday, the first two department websites (for the <a href="https://www.gov.uk/dft">Department for Transport</a> and the <a href="https://www.gov.uk/dclg">Department for Communities and Local Government</a>) were moved across.</p>
 <div class="browsershots"><a href="https://www.gov.uk/government"><img class="browsershot" src="/images/inside-government.png"/></a><a href="https://www.gov.uk/government/organisations/department-for-communities-and-local-government"><img class="browsershot" src="/images/inside-government-dclg.png"/></a><a href="https://www.gov.uk/government/policies/bringing-people-together-in-strong-united-communities"><img class="browsershot" src="/images/inside-government-policy.png"/></a></div>
@@ -87,7 +93,9 @@
 <p>One variation or another of <a href="https://harmonia.io">Harmonia</a> has been helping us for well over a year, but now we’ve built a web app for everyone to use.  It’s still a bit rough around the edges, but we’d love it if people <a href="https://harmonia.io">signed up</a> and gave us feedback.  We’re building this because we want to learn how to build better products, for the future of <a href="http://gofreerange.com">Go Free Range</a>.</p>
           </li><li>
             <h2>
-              <a href="2012-12-27-deploying-harmonia-with-recap">Deploying a rails app from scratch using recap</a>
+              <a href="2012/12/deploying-harmonia-with-recap">
+                Deploying a rails app from scratch using recap
+              </a>
             </h2>
             <p>If you follow <a href="http://gofreerange.com/blog">our company blog</a> you’ll know that we’re working on <a href="http://harmonia.io">Harmonia</a>, our virtual office manager.  I thought I’d explain how we use <a href="https://github.com/freerange/recap">recap</a> to deploy harmonia, to show how easy and fast <a href="https://github.com/freerange/recap">recap</a> makes application deployment.</p>
 <p><a href="https://harmonia.io">Harmonia</a> is a fairly standard rails application.  As well as a web front-end, it has two other processes.  A queue <code>worker</code> is used to send outgoing emails, whilst the core of the application is the <code>ticker</code>; a process which ‘ticks’ every minute, assigning tasks to team members.  We use <a href="https://github.com/ddollar/foreman">foreman</a> to declare these processes in the following <code>Procfile</code>:</p>
@@ -115,7 +123,9 @@
 <p>Using <a href="https://github.com/freerange/recap">recap</a> with <a href="https://harmonia.io">Harmonia</a> has made our deployment process very fast and simple.  When the main harmonia server became over-burdened and we decided to commission a new machine dedicated to harmonia, recap made that process quick and painless.  As well as harmonia, recap is also used to deploy <a href="http://gofreerange.com">the Go Free Range website</a>, <a href="http://tomafro.net">this blog</a>, and a number of other small sites and projects where it has proven itself well.  For larger projects, there are some features (such as more control as to what processes run where) that are missing, but I plan to add these in the next release.  For all other sites, recap has proven itself a lightweight and capable alternative to the standard Capistrano deployment recipes.</p>
           </li><li>
             <h2>
-              <a href="2012-12-31-infinite-sequences-in-ruby">Infinite sequences in ruby</a>
+              <a href="2012/12/infinite-sequences-in-ruby">
+                Infinite sequences in ruby
+              </a>
             </h2>
             <p>One feature of <a href="https://harmonia.io">harmonia</a> is tasks that recur on a schedule, e.g. every Thursday, or on the 30th day of each month.  For these tasks we need to know not just when they’ll next occur, but also things like the next 4 occurrences, or all occurrences this month.</p>
 <p>To do this we’ve used a technique more common in <a href="http://clojure.org/">clojure</a>: using an infinite sequence.</p>
@@ -255,7 +265,9 @@
 <p>Using only a few simple methods, we’ve been able to answer a complicated (though contrived) question, what are the second ten odd square numbers?  This particular answer may not be interesting, but the technique of defining and deriving infinite sequences is much more general and useful.  This is only a small sample of what you can do with them.</p>
           </li><li>
             <h2>
-              <a href="2023-02-16-using-direnv-to-make-life-easier">Using direnv to make life easier</a>
+              <a href="2023/02/using-direnv-to-make-life-easier">
+                Using direnv to make life easier
+              </a>
             </h2>
             <p>One of the tools I find most useful for local development is <a href="https://direnv.net/">direnv</a>. It’s one of a number of similar utilities that hooks into your shell, and alters the environment when you enter or leave a directory.</p>
 <p>To give you an example, if you have a folder <code>~/example</code> with the file <code>~/example/.envrc</code></p>

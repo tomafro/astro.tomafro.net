@@ -11,6 +11,9 @@ import image from "@astrojs/image";
 
 // https://astro.build/config
 export default defineConfig({
+  build: {
+    format: 'file'
+  },
   site: "https://tomafro.net",
   markdown: {
     shikiConfig: {
