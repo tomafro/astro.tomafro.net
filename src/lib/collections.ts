@@ -1,6 +1,6 @@
 import { getCollection } from "astro:content";
 
-function compare(a, b) {
+function compare(a: any, b: any): -1 | 0 | 1 {
   if (a < b) {
     return -1;
   }
@@ -11,28 +11,41 @@ function compare(a, b) {
   return 0;
 }
 
+interface Constructable {
+  new(): any;
+}
+
+interface Draftable {
+  isDraft: boolean;
+}
+
 export class Collection extends Array {
-  static async load(name, entryClass) {
+  static async load(name: "weeknotes" | "articles" | "projects", entryClass: Constructable) {
     return this.from(await getCollection(name)).map((entry) => Object.assign(new entryClass(), entry));
   }
 
-  sortBy(f) {
+  sortBy(f: (a: any) => any) {
     return this.sort((a, b) => compare(f(a), f(b)));
   }
 
-  remove(f) {
+  remove(f: (a: any) => boolean): any[] {
     return this.filter((item) => !f(item));
   }
 
-  byDate() {
+  byMostRecent(): any[] {
     const result = this.sortBy(w => w.date);
     result.reverse();
     return result;
   }
 
-  wherePublished() {
-    return this.remove((entry) => entry.isDraft);
+  wherePublished(): any[] {
+    return this.remove((entry: Draftable) => entry.isDraft);
   }
+}
+
+interface Entry {
+  slug: string;
+  data: any;
 }
 
 class Entry {
