@@ -79,3 +79,4 @@ class Weeknote extends Entry {
 
 export const weeknotes = await Collection.load("weeknotes", Weeknote);
 export const articles = await Collection.load("articles", Article);
+export const projects = await Collection.load("projects", Entry);
