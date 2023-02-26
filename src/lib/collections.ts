@@ -70,6 +70,12 @@ class Entry {
 }
 
 class Article extends Entry {
+  get path() {
+    const year = this.date.getFullYear();
+    const month = (this.date.getMonth() + 1) < 10 ? `0${this.date.getMonth() + 1}` : this.date.getMonth() + 1;
+    return `/${year}/${month}/${this.slug.substring(11)}`;
+  }
+
   get date() {
     return new Date(this.slug.substring(0, 10));
   }
@@ -81,12 +87,12 @@ class Article extends Entry {
 }
 
 class Weeknote extends Entry {
-  get week() {
-    return parseInt(this.slug);
+  get path() {
+    return `/weeknotes/${this.slug}`
   }
 
-  get titleWithWeek() {
-    return `Week ${this.week}: ${this.title}`;
+  get week() {
+    return parseInt(this.slug);
   }
 }
 

@@ -10,6 +10,6 @@ const { entry } = Astro.props;
 const { Content } = await entry.render();
 ---
 
-<Article title={entry.titleWithWeek} date={entry.date}>
+<Article title={entry.title} date={entry.date}>
   <Content />
 </Article>

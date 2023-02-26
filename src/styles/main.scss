@@ -55,6 +55,8 @@ main {
   p,
   pre {
     margin-bottom: var(--line-height);
+
+    code {}
   }
 
   h1,
@@ -116,15 +118,14 @@ main {
 
   p {
     code {
-      position: relative;
-      border: 1px solid #ecdc9e;
-      background-color: #fff8cf;
-      border-radius: 3px;
-      padding-left: 2px;
-      padding-right: 2px;
-      display: inline-block;
-      margin-top: -1px;
-      margin-bottom: -1px;
+      //position: relative;
+      // border: 1px solid #ecdc9e;
+      // background-color: #fff8cf;
+      // border-radius: 3px;
+      // padding-left: 2px;
+      // padding-right: 2px;
+      // margin-top: -1px;
+      // margin-bottom: -1px;
     }
 
     sup {

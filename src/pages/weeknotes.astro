@@ -20,7 +20,7 @@ const rendered = await Promise.all(
       return (
         <article>
           <hgroup>
-            <h1>{weeknote.titleWithWeek}</h1>
+            <h1>{weeknote.data.title}</h1>
             <h2>
               <Date date={weeknote.date} />
             </h2>

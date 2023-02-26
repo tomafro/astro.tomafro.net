@@ -18,13 +18,7 @@ const rendered = await Promise.all(
         return (
           <li>
             <h2>
-              <a
-                href={`${article.date.getFullYear()}/${
-                  article.formattedMonth
-                }/${article.slug.substring(11)}`}
-              >
-                {article.data.title}
-              </a>
+              <a href={`${article.path}`}>{article.data.title}</a>
             </h2>
             <Content />
           </li>
