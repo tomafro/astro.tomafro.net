@@ -1,0 +1,18 @@
+#!/bin/bash
+npx astro build
+
+wd="$(pwd)"
+
+cd ../tomafro.net
+rm -rf "!(.git)"
+
+echo $wd
+cd $wd
+cp -r dist/* ../tomafro.net/
+
+sha=$(git rev-parse HEAD)
+message=$(git log -1 --format=%s)
+full=$(printf "%s\n\n%s" "https://github.com/tomafro/astro.tomafro.net/tree/$sha" "$message")
+cd ../tomafro.net
+git add --all
+git commit -m "$full"
