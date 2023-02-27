@@ -13,7 +13,7 @@
     <link rel="preload" href="/fonts/bitter-italic.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="/fonts/fira-code.woff2" as="font" type="font/woff2" crossorigin>
     <meta name="generator" content="Astro v2.0.14">
-    <title>Working inside government - Tom Ward's Blog</title>
+    <title>Kernel specific ZSH dotfiles - Tom Ward's Blog</title>
   <link rel="stylesheet" href="/_astro/_...slug_.5b1b7a84.css" /></head>
   <body class="baseline">
     
@@ -57,16 +57,24 @@
   <div class="bounds astro-UGUFLI7P">
     <article>
     <hgroup>
-      <h1>Working inside government</h1>
+      <h1>Kernel specific ZSH dotfiles</h1>
       <h2>
-            <time datetime="2012-02-29T00:00:00.000Z">February 29th 2012</time>
+            <time datetime="2009-08-03T00:00:00.000Z">August 3rd 2009</time>
           </h2>
     </hgroup>
-    <p>Since September, I and the other <a href="http://gofreerange.com">Go Free Range</a> guys have been working for the government.  We’ve been helping the able and growing <a href="http://digital.cabinetoffice.gov.uk/">Government Digital Service</a> to build <a href="https://github.com/alphagov/whitehall">whitehall</a>, our code name for the <a href="https://www.gov.uk/government">Inside Government section of gov.uk</a>.  Yesterday we removed the password and opened our doors to the public.</p>
-<div class="browsershots"><a href="https://www.gov.uk/government/organisations/department-for-international-development"><img class="browsershot" src="/images/dfid.thumb.png"/></a><a href="https://www.gov.uk/government/policies/human-rights"><img class="browsershot" src="/images/promoting-human-rights.thumb.png"/></a><a href="https://www.gov.uk/government/organisations"><img class="browsershot" src="/images/departments.thumb.png"/></a></div>
-<p>For those who don’t know, <a href="https://www.gov.uk">gov.uk</a> is the UK government’s attempt to not only consolidate government websites to a single domain, but also build these sites in the right way.  That means <a href="https://www.pivotaltracker.com/projects/367813">public</a>, <a href="https://github.com/alphagov/whitehall">open source</a>, continual delivery and more.</p>
-<p>While the first part of <a href="https://www.gov.uk">gov.uk</a> focussed on helping citizens, <a href="https://www.gov.uk/government">Inside Government</a> is about the business of government.  <a href="https://www.gov.uk/government/policy-topics">What policies</a> the government has, <a href="https://www.gov.uk/government/policies/launching-the-single-domain">how it’s implementing them</a>, not to mention the <a href="https://www.gov.uk/government/news-and-speeches">news and speeches</a>, <a href="https://www.gov.uk/government/publications">publications</a>, <a href="https://www.gov.uk/government/consultations">consultations</a> and other things the government does each day.</p>
-<p>It’s only the first release of many, a small glimpse into what will one day be.  How it ends up will be shaped by <a href="https://www.gov.uk/feedback">feedback from the people who use it</a>.</p>
+    <p>I work on a number of different machines, OS X based for development and Linux based for hosting.  I’ve added various aliases and other commands to my shell, and use <a href="http://github.com/tomafro/dotfiles">a github repository</a> to share this configuration between these machines.</p>
+<p>This works well, but while most commands work commonly across Linux and OS X, there are some nasty differences.  One example is <code>ls</code> which takes different arguments on both systems; the default <code>ls</code> alias I use on OS X doesn’t work on Linux.  So how can we accommodate these differences, without removing all the shared configuration?</p>
+<p>The answer is really simple.  Create kernel specific configuration files, and use a case statement to load the correct one.  The main obstacle was finding a way to distinguish between each kernel.  In the end I found the <code>$system_name</code> environment variable, which is set on both OS X and the servers I use.</p>
+<p>Here’s the code:</p>
+<pre class="astro-code" style="background-color:var(--astro-code-color-background);overflow-x:auto;white-space:pre-wrap;word-wrap:break-word"><code><span class="line"><span style="color:var(--astro-code-token-keyword)">case</span><span style="color:var(--astro-code-color-text)"> $system_name </span><span style="color:var(--astro-code-token-keyword)">in</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">  Darwin</span><span style="color:var(--astro-code-token-keyword)">*</span><span style="color:var(--astro-code-color-text)">)</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">    </span><span style="color:var(--astro-code-token-function)">source</span><span style="color:var(--astro-code-color-text)"> </span><span style="color:var(--astro-code-token-keyword)">~</span><span style="color:var(--astro-code-color-text)">/.houseshare/zsh/kernel/darwin.zsh</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">    ;;</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">  </span><span style="color:var(--astro-code-token-keyword)">*</span><span style="color:var(--astro-code-color-text)">)</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">    </span><span style="color:var(--astro-code-token-function)">source</span><span style="color:var(--astro-code-color-text)"> </span><span style="color:var(--astro-code-token-keyword)">~</span><span style="color:var(--astro-code-color-text)">/.houseshare/zsh/kernel/linux.zsh</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">    ;;;</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">esac</span></span></code></pre>
+<p>As I said, simple.</p>
   </article>
   </div>
 </main>

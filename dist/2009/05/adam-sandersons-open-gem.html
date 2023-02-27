@@ -13,7 +13,7 @@
     <link rel="preload" href="/fonts/bitter-italic.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="/fonts/fira-code.woff2" as="font" type="font/woff2" crossorigin>
     <meta name="generator" content="Astro v2.0.14">
-    <title>Working inside government - Tom Ward's Blog</title>
+    <title>Adam Sanderson&#39;s open_gem - Tom Ward's Blog</title>
   <link rel="stylesheet" href="/_astro/_...slug_.5b1b7a84.css" /></head>
   <body class="baseline">
     
@@ -57,16 +57,28 @@
   <div class="bounds astro-UGUFLI7P">
     <article>
     <hgroup>
-      <h1>Working inside government</h1>
+      <h1>Adam Sanderson&#39;s open_gem</h1>
       <h2>
-            <time datetime="2012-02-29T00:00:00.000Z">February 29th 2012</time>
+            <time datetime="2009-05-06T00:00:00.000Z">May 6th 2009</time>
           </h2>
     </hgroup>
-    <p>Since September, I and the other <a href="http://gofreerange.com">Go Free Range</a> guys have been working for the government.  We’ve been helping the able and growing <a href="http://digital.cabinetoffice.gov.uk/">Government Digital Service</a> to build <a href="https://github.com/alphagov/whitehall">whitehall</a>, our code name for the <a href="https://www.gov.uk/government">Inside Government section of gov.uk</a>.  Yesterday we removed the password and opened our doors to the public.</p>
-<div class="browsershots"><a href="https://www.gov.uk/government/organisations/department-for-international-development"><img class="browsershot" src="/images/dfid.thumb.png"/></a><a href="https://www.gov.uk/government/policies/human-rights"><img class="browsershot" src="/images/promoting-human-rights.thumb.png"/></a><a href="https://www.gov.uk/government/organisations"><img class="browsershot" src="/images/departments.thumb.png"/></a></div>
-<p>For those who don’t know, <a href="https://www.gov.uk">gov.uk</a> is the UK government’s attempt to not only consolidate government websites to a single domain, but also build these sites in the right way.  That means <a href="https://www.pivotaltracker.com/projects/367813">public</a>, <a href="https://github.com/alphagov/whitehall">open source</a>, continual delivery and more.</p>
-<p>While the first part of <a href="https://www.gov.uk">gov.uk</a> focussed on helping citizens, <a href="https://www.gov.uk/government">Inside Government</a> is about the business of government.  <a href="https://www.gov.uk/government/policy-topics">What policies</a> the government has, <a href="https://www.gov.uk/government/policies/launching-the-single-domain">how it’s implementing them</a>, not to mention the <a href="https://www.gov.uk/government/news-and-speeches">news and speeches</a>, <a href="https://www.gov.uk/government/publications">publications</a>, <a href="https://www.gov.uk/government/consultations">consultations</a> and other things the government does each day.</p>
-<p>It’s only the first release of many, a small glimpse into what will one day be.  How it ends up will be shaped by <a href="https://www.gov.uk/feedback">feedback from the people who use it</a>.</p>
+    <p>The latest version of <a href="http://rubygems.org/">rubygems</a> (1.3.2) now has an interface to add commands.  Making great use of this feature, <a href="http://endofline.wordpress.com/">Adam Sanderson</a> has written <a href="http://github.com/adamsanderson/open_gem">open_gem</a>, a simple but amazingly useful tool.</p>
+<p>You use it like this:</p>
+<pre class="astro-code" style="background-color:var(--astro-code-color-background);overflow-x:auto;white-space:pre-wrap;word-wrap:break-word"><code><span class="line"><span style="color:var(--astro-code-color-text)">$ gem open activerecord</span></span></code></pre>
+<p>This opens the activerecord gem in your favourite editor (taken from either <code>$GEM_OPEN_EDITOR</code> or <code>$EDITOR</code> environment variables).  If there are multiple versions of the gem installed, it will show a menu, letting you choose which version you require.</p>
+<pre class="astro-code" style="background-color:var(--astro-code-color-background);overflow-x:auto;white-space:pre-wrap;word-wrap:break-word"><code><span class="line"><span style="color:var(--astro-code-color-text)">$ gem open activerecord</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">Open which gem</span><span style="color:var(--astro-code-token-keyword)">?</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)"> 1. activerecord 2.1.0</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)"> 2. activerecord 2.3.2</span></span>
+<span class="line"><span style="color:var(--astro-code-token-keyword)">&gt;</span></span></code></pre>
+<p>open_gem itself is a gem, and can be installed with:</p>
+<pre class="astro-code" style="background-color:var(--astro-code-color-background);overflow-x:auto;white-space:pre-wrap;word-wrap:break-word"><code><span class="line"><span style="color:var(--astro-code-color-text)">$ gem install open_gem</span></span></code></pre>
+<p>To get it working, you need to have <code>$EDITOR</code> set to something sensible:</p>
+<pre class="astro-code" style="background-color:var(--astro-code-color-background);overflow-x:auto;white-space:pre-wrap;word-wrap:break-word"><code><span class="line"><span style="color:var(--astro-code-color-text)">$ </span><span style="color:var(--astro-code-token-keyword)">export</span><span style="color:var(--astro-code-color-text)"> EDITOR=mate</span></span></code></pre>
+<p>If you’re running on OS X and use TextMate, you may have already set <code>$EDITOR</code> to <code>mate -w</code>, which let’s you use TextMate as the editor for git commit messages and much more.  However, the <code>-w</code> flag doesn’t work with open_gem, so set the <code>$GEM_OPEN_EDITOR</code> variable, and open_gem will use that instead:</p>
+<pre class="astro-code" style="background-color:var(--astro-code-color-background);overflow-x:auto;white-space:pre-wrap;word-wrap:break-word"><code><span class="line"><span style="color:var(--astro-code-color-text)">$ </span><span style="color:var(--astro-code-token-keyword)">export</span><span style="color:var(--astro-code-color-text)"> GEM_OPEN_EDITOR=mate</span></span></code></pre>
+<p>You should now be good to go.  If you want to see how it works, just use it on itself!</p>
+<pre class="astro-code" style="background-color:var(--astro-code-color-background);overflow-x:auto;white-space:pre-wrap;word-wrap:break-word"><code><span class="line"><span style="color:var(--astro-code-color-text)">$ gem open open_gem</span></span></code></pre>
   </article>
   </div>
 </main>

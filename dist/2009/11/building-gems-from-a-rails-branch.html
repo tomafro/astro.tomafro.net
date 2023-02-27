@@ -13,7 +13,7 @@
     <link rel="preload" href="/fonts/bitter-italic.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="/fonts/fira-code.woff2" as="font" type="font/woff2" crossorigin>
     <meta name="generator" content="Astro v2.0.14">
-    <title>Working inside government - Tom Ward's Blog</title>
+    <title>Building rails gems from the 2-3-stable branch - Tom Ward's Blog</title>
   <link rel="stylesheet" href="/_astro/_...slug_.5b1b7a84.css" /></head>
   <body class="baseline">
     
@@ -57,16 +57,35 @@
   <div class="bounds astro-UGUFLI7P">
     <article>
     <hgroup>
-      <h1>Working inside government</h1>
+      <h1>Building rails gems from the 2-3-stable branch</h1>
       <h2>
-            <time datetime="2012-02-29T00:00:00.000Z">February 29th 2012</time>
+            <time datetime="2009-11-05T00:00:00.000Z">November 5th 2009</time>
           </h2>
     </hgroup>
-    <p>Since September, I and the other <a href="http://gofreerange.com">Go Free Range</a> guys have been working for the government.  We’ve been helping the able and growing <a href="http://digital.cabinetoffice.gov.uk/">Government Digital Service</a> to build <a href="https://github.com/alphagov/whitehall">whitehall</a>, our code name for the <a href="https://www.gov.uk/government">Inside Government section of gov.uk</a>.  Yesterday we removed the password and opened our doors to the public.</p>
-<div class="browsershots"><a href="https://www.gov.uk/government/organisations/department-for-international-development"><img class="browsershot" src="/images/dfid.thumb.png"/></a><a href="https://www.gov.uk/government/policies/human-rights"><img class="browsershot" src="/images/promoting-human-rights.thumb.png"/></a><a href="https://www.gov.uk/government/organisations"><img class="browsershot" src="/images/departments.thumb.png"/></a></div>
-<p>For those who don’t know, <a href="https://www.gov.uk">gov.uk</a> is the UK government’s attempt to not only consolidate government websites to a single domain, but also build these sites in the right way.  That means <a href="https://www.pivotaltracker.com/projects/367813">public</a>, <a href="https://github.com/alphagov/whitehall">open source</a>, continual delivery and more.</p>
-<p>While the first part of <a href="https://www.gov.uk">gov.uk</a> focussed on helping citizens, <a href="https://www.gov.uk/government">Inside Government</a> is about the business of government.  <a href="https://www.gov.uk/government/policy-topics">What policies</a> the government has, <a href="https://www.gov.uk/government/policies/launching-the-single-domain">how it’s implementing them</a>, not to mention the <a href="https://www.gov.uk/government/news-and-speeches">news and speeches</a>, <a href="https://www.gov.uk/government/publications">publications</a>, <a href="https://www.gov.uk/government/consultations">consultations</a> and other things the government does each day.</p>
-<p>It’s only the first release of many, a small glimpse into what will one day be.  How it ends up will be shaped by <a href="https://www.gov.uk/feedback">feedback from the people who use it</a>.</p>
+    <p>For the latest application I’ve been working on, I wanted to use <a href="http://github.com/NZKoz/rails_xss/">Michael Koziarski’s rails_xss plugin</a>, to turn default escaping on in my erb templates.  I’m also using <a href="http://github.com/wycats/bundler/">wycats gem bundler</a> to manage gems and their dependencies, including rails.</p>
+<p>This posed a problem: xss_rails requires changes made in rails 2-3-stable branch, but not yet released in a gem (though they will be included in 2.3.5).</p>
+<p>The solution was obvious: build my own gems, and get bundler to use them.  Luckily, rails makes this an easy process.</p>
+<p>First, clone rails from github, and change to the 2-3-stable branch:</p>
+<pre class="astro-code" style="background-color:var(--astro-code-color-background);overflow-x:auto;white-space:pre-wrap;word-wrap:break-word"><code><span class="line"><span style="color:var(--astro-code-color-text)">git clone git://github.com/rails/rails.git</span></span>
+<span class="line"><span style="color:var(--astro-code-token-function)">cd</span><span style="color:var(--astro-code-color-text)"> rails</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">git co -b 2-3-stable origin/2-3-stable</span></span></code></pre>
+<p>Next, we need to build the gems.  Rails currently doesn’t seem to have a Raketask to build all its constituent projects (though I’m planning a patch to include one), so you have to build each one in turn:</p>
+<pre class="astro-code" style="background-color:var(--astro-code-color-background);overflow-x:auto;white-space:pre-wrap;word-wrap:break-word"><code><span class="line"><span style="color:var(--astro-code-token-function)">cd</span><span style="color:var(--astro-code-color-text)"> actionmailer</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">rake gem PKG_BUILD=1</span></span>
+<span class="line"><span style="color:var(--astro-code-token-function)">cd</span><span style="color:var(--astro-code-color-text)"> ../actionpack</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">rake gem PKG_BUILD=1</span></span>
+<span class="line"><span style="color:var(--astro-code-token-function)">cd</span><span style="color:var(--astro-code-color-text)"> ../activerecord</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">rake gem PKG_BUILD=1</span></span>
+<span class="line"><span style="color:var(--astro-code-token-function)">cd</span><span style="color:var(--astro-code-color-text)"> ../activeresource</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">rake gem PKG_BUILD=1</span></span>
+<span class="line"><span style="color:var(--astro-code-token-function)">cd</span><span style="color:var(--astro-code-color-text)"> ../activesupport</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">rake gem PKG_BUILD=1</span></span>
+<span class="line"><span style="color:var(--astro-code-token-function)">cd</span><span style="color:var(--astro-code-color-text)"> ../railties</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">rake gem PKG_BUILD=1</span></span>
+<span class="line"><span style="color:var(--astro-code-token-function)">cd</span><span style="color:var(--astro-code-color-text)"> ..</span></span></code></pre>
+<p>The key is the <code>PKG_BUILD</code> variable.  It appends a suffix to the rails version, so rather than building 2.3.4 (the version I checked out), it will build 2.3.4.1.  If I decided to update my gems, I’d use PKG_BUILD=2, then 3 and so on.</p>
+<p>Finally, once all these gems are built, it’s simply a case of finding them and using them.  For gem bundler, this means placing them in the cache and updating the Gemfile to look for rails ‘2.3.4.1’.  The gems are all built in pkg folders in their respective subprojects, so to copy them all somewhere else you can run:</p>
+<pre class="astro-code" style="background-color:var(--astro-code-color-background);overflow-x:auto;white-space:pre-wrap;word-wrap:break-word"><code><span class="line"><span style="color:var(--astro-code-color-text)">cp </span><span style="color:var(--astro-code-token-keyword)">**</span><span style="color:var(--astro-code-color-text)">/pkg/</span><span style="color:var(--astro-code-token-keyword)">*</span><span style="color:var(--astro-code-color-text)">.gem </span><span style="color:var(--astro-code-token-keyword)">&lt;</span><span style="color:var(--astro-code-color-text)">project-folder</span><span style="color:var(--astro-code-token-keyword)">&gt;</span><span style="color:var(--astro-code-color-text)">/gems/cache</span></span></code></pre>
   </article>
   </div>
 </main>

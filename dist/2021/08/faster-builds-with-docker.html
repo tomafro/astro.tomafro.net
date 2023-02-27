@@ -13,7 +13,7 @@
     <link rel="preload" href="/fonts/bitter-italic.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="/fonts/fira-code.woff2" as="font" type="font/woff2" crossorigin>
     <meta name="generator" content="Astro v2.0.14">
-    <title>Working inside government - Tom Ward's Blog</title>
+    <title>Fast build dependencies with docker - Tom Ward's Blog</title>
   <link rel="stylesheet" href="/_astro/_...slug_.5b1b7a84.css" /></head>
   <body class="baseline">
     
@@ -57,16 +57,31 @@
   <div class="bounds astro-UGUFLI7P">
     <article>
     <hgroup>
-      <h1>Working inside government</h1>
+      <h1>Fast build dependencies with docker</h1>
       <h2>
-            <time datetime="2012-02-29T00:00:00.000Z">February 29th 2012</time>
+            <time datetime="2021-08-27T00:00:00.000Z">August 27th 2021</time>
           </h2>
     </hgroup>
-    <p>Since September, I and the other <a href="http://gofreerange.com">Go Free Range</a> guys have been working for the government.  We’ve been helping the able and growing <a href="http://digital.cabinetoffice.gov.uk/">Government Digital Service</a> to build <a href="https://github.com/alphagov/whitehall">whitehall</a>, our code name for the <a href="https://www.gov.uk/government">Inside Government section of gov.uk</a>.  Yesterday we removed the password and opened our doors to the public.</p>
-<div class="browsershots"><a href="https://www.gov.uk/government/organisations/department-for-international-development"><img class="browsershot" src="/images/dfid.thumb.png"/></a><a href="https://www.gov.uk/government/policies/human-rights"><img class="browsershot" src="/images/promoting-human-rights.thumb.png"/></a><a href="https://www.gov.uk/government/organisations"><img class="browsershot" src="/images/departments.thumb.png"/></a></div>
-<p>For those who don’t know, <a href="https://www.gov.uk">gov.uk</a> is the UK government’s attempt to not only consolidate government websites to a single domain, but also build these sites in the right way.  That means <a href="https://www.pivotaltracker.com/projects/367813">public</a>, <a href="https://github.com/alphagov/whitehall">open source</a>, continual delivery and more.</p>
-<p>While the first part of <a href="https://www.gov.uk">gov.uk</a> focussed on helping citizens, <a href="https://www.gov.uk/government">Inside Government</a> is about the business of government.  <a href="https://www.gov.uk/government/policy-topics">What policies</a> the government has, <a href="https://www.gov.uk/government/policies/launching-the-single-domain">how it’s implementing them</a>, not to mention the <a href="https://www.gov.uk/government/news-and-speeches">news and speeches</a>, <a href="https://www.gov.uk/government/publications">publications</a>, <a href="https://www.gov.uk/government/consultations">consultations</a> and other things the government does each day.</p>
-<p>It’s only the first release of many, a small glimpse into what will one day be.  How it ends up will be shaped by <a href="https://www.gov.uk/feedback">feedback from the people who use it</a>.</p>
+    <p>Recently at <a href="https://farill.io">farill.io</a> we’ve rewritten our CI pipeline, moving from <a href="https://circleci.com/">CircleCI</a> to <a href="https://buildkite.com">buildkite</a>. Our builds should finish as quickly as possible, so we’ve split them into several discrete steps, many of which can run in parallel. Each step runs in a dedicated docker container (via the <a href="https://github.com/buildkite-plugins/docker-compose-buildkite-plugin">buildkite docker-compose plugin</a>), sharing nothing with other steps in the pipeline. To keep the build fast they must start up as fast as possible, so we use a special builder image that already includes all tools and dependencies (such as gems, javascript modules, clojure libraries, etc).</p>
+<pre class="astro-code" style="background-color:var(--astro-code-color-background);overflow-x:auto;white-space:pre-wrap;word-wrap:break-word"><code><span class="line"><span style="color:var(--astro-code-token-keyword)">FROM</span><span style="color:var(--astro-code-color-text)"> ubuntu:20.04 </span><span style="color:var(--astro-code-token-keyword)">AS</span><span style="color:var(--astro-code-color-text)"> base</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:var(--astro-code-token-comment)"># ...install all the tools needed for the build, such as</span></span>
+<span class="line"><span style="color:var(--astro-code-token-comment)"># ruby, node, yarn, etc...</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:var(--astro-code-token-keyword)">ENV</span><span style="color:var(--astro-code-color-text)"> GEM_HOME ${HOME}/ruby/gems</span></span>
+<span class="line"><span style="color:var(--astro-code-token-keyword)">ENV</span><span style="color:var(--astro-code-color-text)"> BUNDLE_PATH ${HOME}/ruby/bundle</span></span>
+<span class="line"><span style="color:var(--astro-code-token-keyword)">ENV</span><span style="color:var(--astro-code-color-text)"> BUNDLE_BIN ${HOME}/ruby/bin</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:var(--astro-code-token-keyword)">FROM</span><span style="color:var(--astro-code-color-text)"> base </span><span style="color:var(--astro-code-token-keyword)">AS</span><span style="color:var(--astro-code-color-text)"> ruby</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:var(--astro-code-token-keyword)">COPY</span><span style="color:var(--astro-code-color-text)"> Gemfile Gemfile</span></span>
+<span class="line"><span style="color:var(--astro-code-token-keyword)">COPY</span><span style="color:var(--astro-code-color-text)"> Gemfile.lock Gemfile.lock</span></span>
+<span class="line"><span style="color:var(--astro-code-token-keyword)">RUN</span><span style="color:var(--astro-code-color-text)"> bundle install</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:var(--astro-code-token-keyword)">FROM</span><span style="color:var(--astro-code-color-text)"> base </span><span style="color:var(--astro-code-token-keyword)">AS</span><span style="color:var(--astro-code-color-text)"> build</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:var(--astro-code-token-keyword)">COPY</span><span style="color:var(--astro-code-color-text)"> --from=ruby ${GEM_HOME} ${GEM_HOME}</span></span>
+<span class="line"><span style="color:var(--astro-code-token-keyword)">COPY</span><span style="color:var(--astro-code-color-text)"> --from=ruby ${BUNDLE_BIN} ${BUNDLE_BIN}</span></span></code></pre>
   </article>
   </div>
 </main>

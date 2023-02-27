@@ -13,7 +13,7 @@
     <link rel="preload" href="/fonts/bitter-italic.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="/fonts/fira-code.woff2" as="font" type="font/woff2" crossorigin>
     <meta name="generator" content="Astro v2.0.14">
-    <title>Working inside government - Tom Ward's Blog</title>
+    <title>The cost of explicit returns in ruby - Tom Ward's Blog</title>
   <link rel="stylesheet" href="/_astro/_...slug_.5b1b7a84.css" /></head>
   <body class="baseline">
     
@@ -57,16 +57,27 @@
   <div class="bounds astro-UGUFLI7P">
     <article>
     <hgroup>
-      <h1>Working inside government</h1>
+      <h1>The cost of explicit returns in ruby</h1>
       <h2>
-            <time datetime="2012-02-29T00:00:00.000Z">February 29th 2012</time>
+            <time datetime="2009-08-04T00:00:00.000Z">August 4th 2009</time>
           </h2>
     </hgroup>
-    <p>Since September, I and the other <a href="http://gofreerange.com">Go Free Range</a> guys have been working for the government.  We’ve been helping the able and growing <a href="http://digital.cabinetoffice.gov.uk/">Government Digital Service</a> to build <a href="https://github.com/alphagov/whitehall">whitehall</a>, our code name for the <a href="https://www.gov.uk/government">Inside Government section of gov.uk</a>.  Yesterday we removed the password and opened our doors to the public.</p>
-<div class="browsershots"><a href="https://www.gov.uk/government/organisations/department-for-international-development"><img class="browsershot" src="/images/dfid.thumb.png"/></a><a href="https://www.gov.uk/government/policies/human-rights"><img class="browsershot" src="/images/promoting-human-rights.thumb.png"/></a><a href="https://www.gov.uk/government/organisations"><img class="browsershot" src="/images/departments.thumb.png"/></a></div>
-<p>For those who don’t know, <a href="https://www.gov.uk">gov.uk</a> is the UK government’s attempt to not only consolidate government websites to a single domain, but also build these sites in the right way.  That means <a href="https://www.pivotaltracker.com/projects/367813">public</a>, <a href="https://github.com/alphagov/whitehall">open source</a>, continual delivery and more.</p>
-<p>While the first part of <a href="https://www.gov.uk">gov.uk</a> focussed on helping citizens, <a href="https://www.gov.uk/government">Inside Government</a> is about the business of government.  <a href="https://www.gov.uk/government/policy-topics">What policies</a> the government has, <a href="https://www.gov.uk/government/policies/launching-the-single-domain">how it’s implementing them</a>, not to mention the <a href="https://www.gov.uk/government/news-and-speeches">news and speeches</a>, <a href="https://www.gov.uk/government/publications">publications</a>, <a href="https://www.gov.uk/government/consultations">consultations</a> and other things the government does each day.</p>
-<p>It’s only the first release of many, a small glimpse into what will one day be.  How it ends up will be shaped by <a href="https://www.gov.uk/feedback">feedback from the people who use it</a>.</p>
+    <p>Yesterday <a href="http://m.onkey.org/2009/8/3/ruby-i-don-t-like-1-explicit-return">Pratik Naik wrote a post</a> on one of his pet hates - explicit returns in ruby.  I agree 100% with Pratik, I can’t stand them either.</p>
+<p>In one of the comments, Chris Wanstrath posted <a href="http://gist.github.com/160718">this microbenchmark</a> showing that using explicit returns incurs a surprising performance hit.  It seemed crazy to me, so I thought I’d investigate further, running the benchmark on jruby and ruby 1.9 for comparison.</p>
+<h3 id="ruby-187-2008-08-11-patchlevel-72">ruby 1.8.7 (2008-08-11 patchlevel 72)</h3>
+<pre><p>user     system      total        real
+explicit   3.420000   0.020000   3.440000 (  3.478501)
+implicit   2.220000   0.000000   2.220000 (  2.236413)</p></pre>
+<h3 id="jruby-116-ruby-186-patchlevel-114">jruby 1.1.6 (ruby 1.8.6 patchlevel 114)</h3>
+<pre><p>user     system      total        real
+explicit   2.611000   0.000000   2.611000 (  2.611001)
+implicit   2.541000   0.000000   2.541000 (  2.541385)</p></pre>
+<h3 id="ruby-191p0-2009-01-30-revision-21907">ruby 1.9.1p0 (2009-01-30 revision 21907)</h3>
+<pre><p>user     system      total        real
+explicit   1.580000   0.010000   1.590000 (  1.614273)
+implicit   1.520000   0.000000   1.520000 (  1.537492)</p></pre>
+<p>So neither jruby nor ruby 1.9 incur this penalty.</p>
+<p>Is this good news or not?  If, like me, you consider explicit returns a code smell, I guess it doesn’t matter either way.</p>
   </article>
   </div>
 </main>

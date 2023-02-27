@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Tom Ward's personal website">
+    <meta name="sha">
+    <link rel="alternate" type="application/rss+xml" title="Weeknotes RSS feed for Tom Ward's Blog" href="/weeknotes/rss.xml">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="preload" href="/fonts/rubik.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/fonts/rubik-italic.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/fonts/bitter.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/fonts/bitter-italic.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/fonts/fira-code.woff2" as="font" type="font/woff2" crossorigin>
+    <meta name="generator" content="Astro v2.0.14">
+    <title>Using indexes in rails: Choosing additional indexes - Tom Ward's Blog</title>
+  <link rel="stylesheet" href="/_astro/_...slug_.5b1b7a84.css" /></head>
+  <body class="baseline">
+    
+
+<header class="astro-WOK3G3JL" style="--maxWidth: 50rem;--gutterSize: 0.5rem;">
+  <div class="container astro-WOK3G3JL">
+    <nav class="astro-WOK3G3JL">
+      <ul class="sections astro-WOK3G3JL">
+        <li class="astro-WOK3G3JL"><a href="/" class="astro-WOK3G3JL">About</a></li>
+        <li class="astro-WOK3G3JL"><a href="/weeknotes" class="astro-WOK3G3JL">Weeknotes</a></li>
+        <li class="astro-WOK3G3JL"><a href="/projects" class="astro-WOK3G3JL">Projects</a></li>
+      </ul>
+      <ul class="icons astro-WOK3G3JL">
+        <li class="astro-WOK3G3JL">
+          <a href="https://hachyderm.io/@tomafro" class="astro-WOK3G3JL">
+
+<svg class="icon astro-PATNJMLL" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Pro 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+  <path d="M433 179.11c0-97.2-63.71-125.7-63.71-125.7-62.52-28.7-228.56-28.4-290.48 0 0 0-63.72 28.5-63.72 125.7 0 115.7-6.6 259.4 105.63 289.1 40.51 10.7 75.32 13 103.33 11.4 50.81-2.8 79.32-18.1 79.32-18.1l-1.7-36.9s-36.31 11.4-77.12 10.1c-40.41-1.4-83-4.4-89.63-54a102.54 102.54 0 0 1-.9-13.9c85.63 20.9 158.65 9.1 178.75 6.7 56.12-6.7 105-41.3 111.23-72.9 9.8-49.8 9-121.5 9-121.5zm-75.12 125.2h-46.63v-114.2c0-49.7-64-51.6-64 6.9v62.5h-46.33V197c0-58.5-64-56.6-64-6.9v114.2H90.19c0-122.1-5.2-147.9 18.41-175 25.9-28.9 79.82-30.8 103.83 6.1l11.6 19.5 11.6-19.5c24.11-37.1 78.12-34.8 103.83-6.1 23.71 27.3 18.4 53 18.4 175z"></path>
+</svg></a>
+        </li>
+        <li class="astro-WOK3G3JL">
+          <a href="https://instagram.com/tomafro" class="astro-WOK3G3JL">
+
+<svg class="icon astro-PATNJMLL" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Pro 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+  <path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"></path>
+</svg></a>
+        </li>
+        <li class="astro-WOK3G3JL">
+          <a href="https://github.com/tomafro" class="astro-WOK3G3JL">
+
+<svg class="icon astro-PATNJMLL" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Pro 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+  <path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1zM480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2zm-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3zm-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1z"></path>
+</svg></a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>
+    
+<main class="astro-UGUFLI7P" style="--maxWidth: 50rem;--gutterSize: 0.5rem;">
+  <div class="bounds astro-UGUFLI7P">
+    <article>
+    <hgroup>
+      <h1>Using indexes in rails: Choosing additional indexes</h1>
+      <h2>
+            <time datetime="2009-08-18T00:00:00.000Z">August 18th 2009</time>
+          </h2>
+    </hgroup>
+    <p><a href="http://tomafro.net/2009/08/using-indexes-in-rails-index-your-associations">The first part in this series of posts</a> looked at adding indexes to foreign keys, to improve the performance when navigating rails associations.  But many queries involve data other than just foreign keys.  With the judicious use of indexes, we can improve these too.</p>
+<p>Let’s take the <code>conversations</code> table used in the first article, and add a column to hold the language, and some timestamps.  Here’s the full schema:</p>
+<pre class="astro-code" style="background-color:var(--astro-code-color-background);overflow-x:auto;white-space:pre-wrap;word-wrap:break-word"><code><span class="line"><span style="color:var(--astro-code-color-text)">create_table conversations </span><span style="color:var(--astro-code-token-keyword)">do</span><span style="color:var(--astro-code-color-text)"> </span><span style="color:var(--astro-code-token-punctuation)">|</span><span style="color:var(--astro-code-color-text)">table</span><span style="color:var(--astro-code-token-punctuation)">|</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">  table</span><span style="color:var(--astro-code-token-punctuation)">.</span><span style="color:var(--astro-code-color-text)">string   :subject</span><span style="color:var(--astro-code-token-punctuation)">,</span><span style="color:var(--astro-code-color-text)"> :null </span><span style="color:var(--astro-code-token-keyword)">=&gt;</span><span style="color:var(--astro-code-color-text)"> </span><span style="color:var(--astro-code-token-constant)">false</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">  table</span><span style="color:var(--astro-code-token-punctuation)">.</span><span style="color:var(--astro-code-color-text)">integer  :user_id</span><span style="color:var(--astro-code-token-punctuation)">,</span><span style="color:var(--astro-code-color-text)"> :null </span><span style="color:var(--astro-code-token-keyword)">=&gt;</span><span style="color:var(--astro-code-color-text)"> </span><span style="color:var(--astro-code-token-constant)">false</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">  table</span><span style="color:var(--astro-code-token-punctuation)">.</span><span style="color:var(--astro-code-color-text)">integer  :subject_id</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">  table</span><span style="color:var(--astro-code-token-punctuation)">.</span><span style="color:var(--astro-code-color-text)">string   :subject_type</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">  table</span><span style="color:var(--astro-code-token-punctuation)">.</span><span style="color:var(--astro-code-color-text)">string   :language_code</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">  table</span><span style="color:var(--astro-code-token-punctuation)">.</span><span style="color:var(--astro-code-color-text)">datetime :created_at</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">  table</span><span style="color:var(--astro-code-token-punctuation)">.</span><span style="color:var(--astro-code-color-text)">datetime :updated_at</span></span>
+<span class="line"><span style="color:var(--astro-code-token-keyword)">end</span></span></code></pre>
+<p>We want to split conversations by their languages, so we’ll add a <code>named_scope</code> to the Conversation class:</p>
+<pre class="astro-code" style="background-color:var(--astro-code-color-background);overflow-x:auto;white-space:pre-wrap;word-wrap:break-word"><code><span class="line"><span style="color:var(--astro-code-token-keyword)">class</span><span style="color:var(--astro-code-color-text)"> </span><span style="color:var(--astro-code-token-function)">Conversation</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">  belongs_to :user</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">  belongs_to :subject</span><span style="color:var(--astro-code-token-punctuation)">,</span><span style="color:var(--astro-code-color-text)"> :polymorphic </span><span style="color:var(--astro-code-token-keyword)">=&gt;</span><span style="color:var(--astro-code-color-text)"> </span><span style="color:var(--astro-code-token-constant)">true</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">  named_scope :in_language</span><span style="color:var(--astro-code-token-punctuation)">,</span><span style="color:var(--astro-code-color-text)"> </span><span style="color:var(--astro-code-token-function)">lambda</span><span style="color:var(--astro-code-color-text)"> {</span><span style="color:var(--astro-code-token-punctuation)">|</span><span style="color:var(--astro-code-color-text)">language</span><span style="color:var(--astro-code-token-punctuation)">|</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">    { :conditions </span><span style="color:var(--astro-code-token-keyword)">=&gt;</span><span style="color:var(--astro-code-color-text)"> {:language_code </span><span style="color:var(--astro-code-token-keyword)">=&gt;</span><span style="color:var(--astro-code-color-text)"> language}}</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">  }</span></span>
+<span class="line"><span style="color:var(--astro-code-token-keyword)">end</span></span></code></pre>
+<p>Using <code>Conversation.in_language &#39;en&#39;</code> will now get us all conversations in English.  Like we did for foreign keys, we can see how long the query takes and read the explain plan.</p>
+<pre class="astro-code" style="background-color:var(--astro-code-color-background);overflow-x:auto;white-space:pre-wrap;word-wrap:break-word"><code><span class="line"><span style="color:var(--astro-code-color-text)">mysql&gt; SELECT * FROM conversations WHERE language_code = &#39;en&#39;;</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">90791 rows in set (3.94 sec)</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)"></span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">mysql&gt; EXPLAIN SELECT * FROM conversations WHERE language_code = &#39;en&#39;;</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">+-------------+------+---------------+---------+-------+---------+-------------+</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">| select_type | type | key           | key_len | ref   | rows    | Extra       |</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">+-------------+------+---------------+---------+-------+---------+-------------+</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">| SIMPLE      | ref  | NULL          | NULL    | NULL  | 1000111 | Using where |</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">+-------------+------+---------------+---------+-------+---------+-------------+</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">1 row in set (0.00 sec)</span></span></code></pre>
+<p>Adding an index to the <code>language_code</code> column should improve the query performance, so let’s do that and see the effect on our query:</p>
+<pre class="astro-code" style="background-color:var(--astro-code-color-background);overflow-x:auto;white-space:pre-wrap;word-wrap:break-word"><code><span class="line"><span style="color:var(--astro-code-color-text)">mysql&gt; SELECT * FROM conversations WHERE language_code = &#39;en&#39;;</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">90791 rows in set (3.02 sec)</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)"></span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">mysql&gt; EXPLAIN SELECT * FROM conversations WHERE language_code = &#39;en&#39;;</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">+-------------+------+---------------+---------+-------+---------+-------------+</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">| select_type | type | key           | key_len | ref   | rows    | Extra       |</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">+-------------+------+---------------+---------+-------+---------+-------------+</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">| SIMPLE      | ref  | lang_code_ix  | 3       | const |   98345 | Using where |</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">+-------------+------+---------------+---------+-------+---------+-------------+</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">1 row in set (0.00 sec)</span></span></code></pre>
+<p>So the query now uses the index, and the time taken has gone from almost 4 seconds to just over 3.  That’s not nearly as big a performance gain as before, but why?  The answer is in the number of rows returned: 90791.  The index helps the database find the relevant rows quickly.  However, it still has to read those rows, and reading over 90,000 rows will always take a significant amount of time.</p>
+<p>In a real app we’re unlikely to want to read all these rows at once, so let’s do another quick comparison limiting the query to the first 100 rows:</p>
+<pre class="astro-code" style="background-color:var(--astro-code-color-background);overflow-x:auto;white-space:pre-wrap;word-wrap:break-word"><code><span class="line"><span style="color:var(--astro-code-color-text)">Without the index:</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)"></span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">mysql&gt; SELECT * FROM conversations WHERE language_code = &#39;en&#39; LIMIT 100;</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">100 rows in set (1.32 sec)</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)"></span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">And with the index:</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)"></span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">mysql&gt; SELECT * FROM conversations WHERE language_code = &#39;en&#39; LIMIT 100;</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">100 rows in set (0.01 sec)</span></span></code></pre>
+<p>Much better.</p>
+<h3 id="choosing-between-indexes">Choosing between indexes</h3>
+<p>We’ve seen that by using an index and limiting the number of results we can quickly get the ‘first’ 100 English conversations.  But in this case ‘first’ doesn’t really mean anything.  When no order clause is specified, MySQL may appear to order its results by id, but this is just a coincidence and shouldn’t be relied on.  Let’s instead order our results by <code>created_at</code> to get the 100 most recent conversations.</p>
+<pre class="astro-code" style="background-color:var(--astro-code-color-background);overflow-x:auto;white-space:pre-wrap;word-wrap:break-word"><code><span class="line"><span style="color:var(--astro-code-color-text)">mysql&gt; SELECT * FROM conversations WHERE language_code = &#39;en&#39; ORDER BY created_at DESC;</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">100 rows in set (4.42 sec)</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)"></span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">mysql&gt; EXPLAIN SELECT * FROM conversations WHERE language_code = &#39;en&#39; ORDER BY created_at DESC;</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">+-------------+------+---------------+---------+-------+---------+-----------------------------+</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">| select_type | type | key           | key_len | ref   | rows    | Extra                       |</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">+-------------+------+---------------+---------+-------+---------+-----------------------------+</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">| SIMPLE      | ref  | lang_code_ix  | 3       | const |   98345 | Using where; using filesort |</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">+-------------+------+---------------+---------+-------+---------+-----------------------------+</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">1 row in set (0.00 sec)</span></span></code></pre>
+<p>Even though this query uses our index and only returns 100 rows, it has still taken almost 4.5 seconds!  The reason for this terrible performance is hinted in the extra information in the explain plan: <code>using filesort</code>.  The database is reading all rows that match the condition (all 90791 of them), then using a filesort to order them before returning the first 100.</p>
+<p>If we add an index on <code>created_at</code> and do the query again we get:</p>
+<pre class="astro-code" style="background-color:var(--astro-code-color-background);overflow-x:auto;white-space:pre-wrap;word-wrap:break-word"><code><span class="line"><span style="color:var(--astro-code-color-text)">mysql&gt; SELECT * FROM conversations WHERE language_code = &#39;en&#39; ORDER BY created_at DESC;</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">100 rows in set (4.39 sec)</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)"></span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">mysql&gt; EXPLAIN SELECT * FROM conversations WHERE language_code = &#39;en&#39; ORDER BY created_at DESC;</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">+-------------+------+---------------+---------+-------+---------+-----------------------------+</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">| select_type | type | key           | key_len | ref   | rows    | Extra                       |</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">+-------------+------+---------------+---------+-------+---------+-----------------------------+</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">| SIMPLE      | ref  | lang_code_ix  | 3       | const |   98345 | Using where; using filesort |</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">+-------------+------+---------------+---------+-------+---------+-----------------------------+</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">1 row in set (0.00 sec)</span></span></code></pre>
+<p>It’s pretty much exactly the same - still almost 4.5 seconds.  This is because MySQL can only use one index per table in a query.  It has to choose between the index on <code>language_code</code> and the one on <code>created_at</code>, and in this case chooses the language code index.  We can force it to use our other index for comparison:</p>
+<pre class="astro-code" style="background-color:var(--astro-code-color-background);overflow-x:auto;white-space:pre-wrap;word-wrap:break-word"><code><span class="line"><span style="color:var(--astro-code-color-text)">mysql&gt; SELECT * FROM conversations</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">       USE INDEX(created_ix) WHERE language_code = &#39;en&#39;</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">       ORDER BY created_at DESC LIMIT 100;</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">100 rows in set (0.02 sec)</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)"></span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">mysql&gt; EXPLAIN SELECT * FROM conversations</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">       USE INDEX(created_ix) WHERE language_code = &#39;en&#39;</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">       ORDER BY created_at DESC LIMIT 100;</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">+-------------+------+---------------+---------+-------+---------+-----------------------------+</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">| select_type | type | key           | key_len | ref   | rows    | Extra                       |</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">+-------------+------+---------------+---------+-------+---------+-----------------------------+</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">| SIMPLE      | ref  | created_ix    | 8       | const | 9903411 | Using where                 |</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">+-------------+------+---------------+---------+-------+---------+-----------------------------+</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">1 row in set (0.00 sec)</span></span></code></pre>
+<p>Using a trick stolen from <a href="http://m.onkey.org/2009/8/6/use-index-with-active-record-finders">Pratik Naik (in the comments of his article)</a> we can force the use of a particular index in rails with a special named scope, and perform our query:</p>
+<pre class="astro-code" style="background-color:var(--astro-code-color-background);overflow-x:auto;white-space:pre-wrap;word-wrap:break-word"><code><span class="line"><span style="color:var(--astro-code-token-constant)">Conversation</span><span style="color:var(--astro-code-token-punctuation)">.</span><span style="color:var(--astro-code-color-text)">named_scope :use_index</span><span style="color:var(--astro-code-token-punctuation)">,</span><span style="color:var(--astro-code-color-text)"> </span><span style="color:var(--astro-code-token-function)">lambda</span><span style="color:var(--astro-code-color-text)"> {</span><span style="color:var(--astro-code-token-punctuation)">|</span><span style="color:var(--astro-code-color-text)">index</span><span style="color:var(--astro-code-token-punctuation)">|</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">  {:from </span><span style="color:var(--astro-code-token-keyword)">=&gt;</span><span style="color:var(--astro-code-color-text)"> </span><span style="color:var(--astro-code-token-string-expression)">&quot;</span><span style="color:var(--astro-code-token-string-expression)">#{quoted_table_name}</span><span style="color:var(--astro-code-token-string-expression)"> USE INDEX(</span><span style="color:var(--astro-code-token-string-expression)">#{index}</span><span style="color:var(--astro-code-token-string-expression)">)&quot;</span><span style="color:var(--astro-code-color-text)">}</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:var(--astro-code-token-constant)">Conversation</span><span style="color:var(--astro-code-token-punctuation)">.</span><span style="color:var(--astro-code-color-text)">in_language(</span><span style="color:var(--astro-code-token-string-expression)">&#39;en&#39;</span><span style="color:var(--astro-code-color-text)">)</span><span style="color:var(--astro-code-token-punctuation)">.</span><span style="color:var(--astro-code-color-text)">use_index(</span><span style="color:var(--astro-code-token-string-expression)">&#39;created_ix&#39;</span><span style="color:var(--astro-code-color-text)">)</span><span style="color:var(--astro-code-token-punctuation)">.</span><span style="color:var(--astro-code-color-text)">all(:order </span><span style="color:var(--astro-code-token-keyword)">=&gt;</span><span style="color:var(--astro-code-color-text)"> </span><span style="color:var(--astro-code-token-string-expression)">&#39;created_at desc&#39;</span><span style="color:var(--astro-code-color-text)">)</span></span></code></pre>
+<p>But there is also another way - using indexing multiple columns.</p>
+<h3 id="using-compound-indexes">Using compound indexes</h3>
+<p>A compound index indexes across two or more columns.  When defining a compound index, the order of the columns is significant, as the database reduces the set of candidate rows by comparing the columns in turn.  So an index created with <code>add_index :conversations, [:language_code, :created_at]</code> will compare <code>language_code</code> first, then <code>created_at</code>.</p>
+<p>Because of this, we need to take some care in choosing the order of our columns.  In general, the rule is to specify the most selective column first.  That is, the column with the most unique values.  So for our query, we’ll add the following:</p>
+<pre class="astro-code" style="background-color:var(--astro-code-color-background);overflow-x:auto;white-space:pre-wrap;word-wrap:break-word"><code><span class="line"><span style="color:var(--astro-code-color-text)">add_index :conversations</span><span style="color:var(--astro-code-token-punctuation)">,</span><span style="color:var(--astro-code-color-text)"> [:created_at</span><span style="color:var(--astro-code-token-punctuation)">,</span><span style="color:var(--astro-code-color-text)"> :language_code]</span></span></code></pre>
+<p>If we explain the query without forcing the index we find it is still efficient:</p>
+<pre class="astro-code" style="background-color:var(--astro-code-color-background);overflow-x:auto;white-space:pre-wrap;word-wrap:break-word"><code><span class="line"><span style="color:var(--astro-code-color-text)">mysql&gt; EXPLAIN SELECT * FROM conversations</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">       WHERE language_code = &#39;en&#39;</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">       ORDER BY created_at DESC LIMIT 100;</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">+-------------+------+----------------+---------+-------+---------+-----------------------------+</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">| select_type | type | key            | key_len | ref   | rows    | Extra                       |</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">+-------------+------+----------------+---------+-------+---------+-----------------------------+</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">| SIMPLE      | ref  | lang_and_ca_ix |      48 | const |  640231 | Using where                 |</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">+-------------+------+----------------+---------+-------+---------+-----------------------------+</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">1 row in set (0.00 sec)</span></span></code></pre>
+<h3 id="a-technique-for-choosing-index-column-order">A technique for choosing index column order</h3>
+<p>Sometimes it’s hard to know which order your columns should be in an index, but there’s an easy way to get a rough idea.  Rewrite the query, removing all conditions, and selecting <code>count(distinct column_to_index)</code> for each column.  So for our query, we’d do the following:</p>
+<pre class="astro-code" style="background-color:var(--astro-code-color-background);overflow-x:auto;white-space:pre-wrap;word-wrap:break-word"><code><span class="line"><span style="color:var(--astro-code-color-text)">mysql&gt; SELECT count(distinct language_code), count(distinct created_at)</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">       FROM conversations;</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">+-------------------------------+----------------------------+</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">| count(distinct language_code) | count(distinct created_at) |</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">+-------------------------------+----------------------------+</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">|                            21 |                     584089 |</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">+-------------------------------+----------------------------+</span></span>
+<span class="line"><span style="color:var(--astro-code-color-text)">1 row in set (1.90 sec)</span></span></code></pre>
+<p>From this it’s clear that there are more distinct created_at values, so we probably want to index this column first.  Note though that I said probably.  When deciding on indexes, there are no hard and fast rules.  Instead, we need to measure and analyse the queries used in our particular app, to ensure we are using the best indexes.</p>
+<p>The next (and last) article in the series will go through some more advanced techniques, including when not to add an index, and how to spot redundant indexes.</p>
+  </article>
+  </div>
+</main>
+    
+  </body></html>
