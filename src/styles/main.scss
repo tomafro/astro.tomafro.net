@@ -72,14 +72,6 @@ main {
     margin-bottom: var(--line-height);
   }
 
-  hgroup {
-    h2 {
-      font-weight: 100;
-    }
-
-    margin-bottom: var(--line-height);
-  }
-
   h1 {
     font-size: 2.8rem;
     line-height: calc(var(--line-height) * 2);
@@ -100,39 +92,6 @@ main {
   h4 {
     font-size: 1.1rem;
     --baseline-adjust: -1px;
-  }
-
-  a {
-    color: var(--accent-colour);
-    text-decoration: underline;
-    text-decoration-thickness: 0.1em;
-    font-weight: 600;
-    transition: 0.15s;
-  }
-
-  a:hover {
-    opacity: 0.5;
-  }
-
-  p {
-    code {
-      //position: relative;
-      // border: 1px solid #ecdc9e;
-      // background-color: #fff8cf;
-      // border-radius: 3px;
-      // padding-left: 2px;
-      // padding-right: 2px;
-      // margin-top: -1px;
-      // margin-bottom: -1px;
-    }
-
-    sup {
-      // Align with the top of the text, so as not to interfere with the baseline. Then use
-      // relative positioning to push the superscript up a little.
-      position: relative;
-      vertical-align: top;
-      top: -0.4em;
-    }
   }
 
   ul.content-list {

@@ -12,7 +12,38 @@ const { article } = Astro.props as Props;
 const { title, date } = article;
 ---
 
-<style></style>
+<style lang="scss">
+  hgroup {
+    h2 {
+      font-weight: 100;
+    }
+
+    margin-bottom: var(--line-height);
+  }
+
+  .content {
+    :global(a) {
+      color: var(--accent-colour);
+      text-decoration: underline;
+      text-decoration-thickness: 0.1em;
+      font-weight: 600;
+      transition: 0.15s;
+    }
+
+    :global(a:hover) {
+      opacity: 0.5;
+    }
+
+    :global(sup) {
+      // Align with the top of the text, so as not to interfere with the baseline. Then use
+      // relative positioning to push the superscript up a little.
+      position: relative;
+      vertical-align: top;
+      font-size: 0.7em;
+      top: -0.4em;
+    }
+  }
+</style>
 <article>
   <hgroup>
     <h1>{title}</h1>
@@ -24,5 +55,7 @@ const { title, date } = article;
       )
     }
   </hgroup>
-  <slot />
+  <div class="content">
+    <slot />
+  </div>
 </article>
