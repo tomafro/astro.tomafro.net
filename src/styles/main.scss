@@ -45,7 +45,7 @@ code {
 }
 
 body.baseline {
-  //background: repeating-linear-gradient(white, white calc(1lh - 1px), #9da2db calc(1lh - 1px), #9da2db 1lh);
+  // background: repeating-linear-gradient(white, white calc(1lh - 1px), #9da2db calc(1lh - 1px), #9da2db 1lh);
 }
 
 main {
@@ -55,8 +55,6 @@ main {
   p,
   pre {
     margin-bottom: var(--line-height);
-
-    code {}
   }
 
   h1,

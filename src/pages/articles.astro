@@ -1,5 +1,6 @@
 ---
 import MainLayout from "@layouts/MainLayout.astro";
+import Article from "@components/Article.astro";
 import { articles } from "@lib/collections";
 
 const rendered = await Promise.all(
@@ -11,19 +12,13 @@ const rendered = await Promise.all(
 ---
 
 <MainLayout title="Articles">
-  <h1>Articles</h1>
-  <ul class="content-list">
-    {
-      rendered.map(({ article, Content, headings }) => {
-        return (
-          <li>
-            <h2>
-              <a href={`${article.path}`}>{article.data.title}</a>
-            </h2>
-            <Content />
-          </li>
-        );
-      })
-    }
-  </ul>
+  {
+    rendered.map(({ article, Content, headings }) => {
+      return (
+        <Article article={article}>
+          <Content />
+        </Article>
+      );
+    })
+  }
 </MainLayout>

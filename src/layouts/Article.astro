@@ -1,27 +1,18 @@
 ---
 import MainLayout from "./MainLayout.astro";
-import Date from "@components/Date.astro";
+import Article from "@components/Article.astro";
 
 export interface Props {
   title: string;
   date: Date;
 }
 
-const { title, date } = Astro.props.frontmatter || Astro.props;
+const article = Astro.props.frontmatter || Astro.props;
+const { title } = article;
 ---
 
 <MainLayout title={title}>
-  <article>
-    <hgroup>
-      <h1>{title}</h1>
-      {
-        date && (
-          <h2>
-            <Date date={date} />
-          </h2>
-        )
-      }
-    </hgroup>
+  <Article article={article}>
     <slot />
-  </article>
+  </Article>
 </MainLayout>

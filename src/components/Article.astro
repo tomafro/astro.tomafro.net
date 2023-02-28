@@ -1,0 +1,28 @@
+---
+import Date from "@components/Date.astro";
+
+export interface Props {
+  article: {
+    title: string;
+    date: string;
+  };
+}
+
+const { article } = Astro.props as Props;
+const { title, date } = article;
+---
+
+<style></style>
+<article>
+  <hgroup>
+    <h1>{title}</h1>
+    {
+      date && (
+        <h2>
+          <Date date={date} />
+        </h2>
+      )
+    }
+  </hgroup>
+  <slot />
+</article>

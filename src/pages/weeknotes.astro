@@ -1,6 +1,6 @@
 ---
 import MainLayout from "@layouts/MainLayout.astro";
-import Date from "@components/Date.astro";
+import Article from "@components/Article.astro";
 import { weeknotes } from "@lib/collections.js";
 
 const rendered = await Promise.all(
@@ -18,15 +18,9 @@ const rendered = await Promise.all(
   {
     rendered.map(({ weeknote, Content, headings }) => {
       return (
-        <article>
-          <hgroup>
-            <h1>{weeknote.data.title}</h1>
-            <h2>
-              <Date date={weeknote.date} />
-            </h2>
-          </hgroup>
+        <Article article={weeknote}>
           <Content />
-        </article>
+        </Article>
       );
     })
   }
