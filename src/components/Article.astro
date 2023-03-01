@@ -4,16 +4,28 @@ import Date from "@components/Date.astro";
 export interface Props {
   article: {
     title: string;
-    date: string;
+    date?: string;
+    path?: string;
   };
 }
 
 const { article } = Astro.props as Props;
-const { title, date } = article;
+const { title, date, path } = article;
 ---
 
 <style lang="scss">
   hgroup {
+    h1 {
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+
+      a:hover {
+        opacity: 0.5;
+      }
+    }
+
     h2 {
       font-weight: 100;
     }
@@ -46,7 +58,7 @@ const { title, date } = article;
 </style>
 <article>
   <hgroup>
-    <h1>{title}</h1>
+    <h1>{path ? <a href={path}>{title}</a> : title}</h1>
     {
       date && (
         <h2>

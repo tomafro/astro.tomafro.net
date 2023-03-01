@@ -1,5 +1,5 @@
 ---
-import MainLayout from "./MainLayout.astro";
+import Main from "@layouts/Main.astro";
 import Article from "@components/Article.astro";
 
 export interface Props {
@@ -11,8 +11,8 @@ const article = Astro.props.frontmatter || Astro.props;
 const { title } = article;
 ---
 
-<MainLayout title={title}>
+<Main title={title}>
   <Article article={article}>
     <slot />
   </Article>
-</MainLayout>
+</Main>

@@ -1,21 +1,24 @@
 ---
-import Article from "@layouts/Article.astro";
+import Main from "@layouts/Main.astro";
+import Article from "@components/Article.astro";
 import { articles } from "@lib/collections";
 
 export async function getStaticPaths() {
-  return articles.map((entry) => ({
+  return articles.map((article) => ({
     params: {
-      slug: entry.slug.substring(11),
-      year: entry.date.getFullYear(),
-      month: entry.formattedMonth,
+      slug: article.slug.substring(11),
+      year: article.date.getFullYear(),
+      month: article.formattedMonth,
     },
-    props: { entry },
+    props: { article },
   }));
 }
-const { entry } = Astro.props;
-const { Content } = await entry.render();
+const { article } = Astro.props;
+const { Content } = await article.render();
 ---
 
-<Article title={entry.data.title} date={entry.date}>
-  <Content />
-</Article>
+<Main title={article.title}>
+  <Article article={article}>
+    <Content />
+  </Article>
+</Main>

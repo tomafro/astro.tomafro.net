@@ -1,5 +1,5 @@
 ---
-import MainLayout from "@layouts/MainLayout.astro";
+import Main from "@layouts/Main.astro";
 import { projects } from "@lib/collections";
 
 const rendered = await Promise.all(
@@ -10,7 +10,7 @@ const rendered = await Promise.all(
 );
 ---
 
-<MainLayout title="Projects">
+<Main title="Projects">
   <h1>Projects</h1>
   <ul class="content-list">
     {
@@ -30,4 +30,4 @@ const rendered = await Promise.all(
       })
     }
   </ul>
-</MainLayout>
+</Main>

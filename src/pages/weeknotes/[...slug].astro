@@ -1,5 +1,6 @@
 ---
-import Article from "@layouts/Article.astro";
+import Main from "@layouts/Main.astro";
+import Article from "@components/Article.astro";
 import { weeknotes } from "@lib/collections";
 
 export async function getStaticPaths() {
@@ -10,6 +11,8 @@ const { entry } = Astro.props;
 const { Content } = await entry.render();
 ---
 
-<Article title={entry.title} date={entry.date}>
-  <Content />
-</Article>
+<Main title={entry.title}>
+  <Article article={entry}>
+    <Content />
+  </Article>
+</Main>

@@ -1,5 +1,5 @@
 ---
-import MainLayout from "@layouts/MainLayout.astro";
+import Main from "@layouts/Main.astro";
 import Article from "@components/Article.astro";
 import { weeknotes } from "@lib/collections.js";
 
@@ -14,7 +14,7 @@ const rendered = await Promise.all(
 );
 ---
 
-<MainLayout title="Weeknotes">
+<Main title="Weeknotes">
   {
     rendered.map(({ weeknote, Content, headings }) => {
       return (
@@ -24,4 +24,4 @@ const rendered = await Promise.all(
       );
     })
   }
-</MainLayout>
+</Main>
