@@ -13,6 +13,5 @@ cp -r dist/* ../tomafro.net/
 sha=$(git rev-parse HEAD)
 message=$(git log -1 --format=%s)
 full=$(printf "%s\n\n%s" "https://github.com/tomafro/astro.tomafro.net/tree/$sha" "$message")
-cd ../tomafro.net
-git add --all
-git commit -m "$full"
+git -C ../tomafro.net add --all
+git -C ../tomafro.net commit -m "$full"
