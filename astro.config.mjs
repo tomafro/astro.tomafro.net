@@ -30,5 +30,15 @@ export default defineConfig({
     remarkRehype: { footnoteLabel: "Footnotes", footnoteLabelTagName: "p", footnoteBackLabel: "Back to content" },
 
   },
-  integrations: [sitemap(), mdx(), image()]
+  integrations: [sitemap(), mdx(), image()],
+  vite: {
+    css: {
+      preprocessorOptions: {
+        scss: {
+          // path to your scss variables
+          //  additionalData: `@import $collapse: 300px;\n`
+        }
+      }
+    }
+  }
 });

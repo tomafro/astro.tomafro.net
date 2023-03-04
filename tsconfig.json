@@ -15,6 +15,9 @@
       "@assets/*": [
         "src/assets/*"
       ],
+      "@styles/*": [
+        "src/styles/*"
+      ]
     }
   }
 }

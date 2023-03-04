@@ -63,11 +63,31 @@ const { title } = Astro.props.frontmatter || Astro.props;
     <meta name="generator" content={Astro.generator} />
     <title>{title} - Tom Ward's Blog</title>
   </head>
+  <style lang="scss">
+    .outer {
+      box-sizing: content-box;
+      max-width: 50rem;
+      margin: 0 auto;
+      container: page / inline-size;
+
+      .inner {
+        padding: 0 0.5rem;
+
+        @container (min-width: 30rem) {
+          padding: 0 1.5rem;
+        }
+      }
+    }
+  </style>
   <body class="baseline">
-    <Header maxWidth="50rem" gutterSize="0.5rem" />
-    <Main maxWidth="50rem" gutterSize="0.5rem">
-      <slot />
-    </Main>
-    <Footer maxWidth="50rem" gutterSize="0.5rem" />
+    <div class="outer">
+      <div class="inner">
+        <Header />
+        <Main>
+          <slot />
+        </Main>
+      </div>
+    </div>
+    <Footer />
   </body>
 </html>

@@ -1,37 +1,24 @@
----
-const { maxWidth, gutterSize } = Astro.props;
----
-
-<style define:vars={{ maxWidth, gutterSize }} lang="scss">
+<style lang="scss">
   main {
-    container: content / inline-size;
-
-    > div.bounds {
-      max-width: var(--maxWidth);
-      padding-left: var(--gutterSize);
-      padding-right: var(--gutterSize);
-      margin: 0 auto;
-    }
-
     :global(article) :global(ul) {
+      position: relative;
       list-style: none inside;
 
       :global(li p:first-child::before) {
-        content: "— ";
+        content: "»";
+        font-weight: 900;
+        margin-right: 0.5rem;
       }
 
-      @container content (min-width: 52rem) {
-        list-style: disc outside;
-
+      @container (min-width: 30rem) {
         :global(li p:first-child::before) {
-          display: none;
+          position: absolute;
+          left: -1rem;
         }
       }
     }
   }
 </style>
 <main>
-  <div class="bounds">
-    <slot />
-  </div>
+  <slot />
 </main>
