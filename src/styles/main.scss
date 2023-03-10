@@ -19,16 +19,6 @@
   --line-height: var(--line-height-size);
   --baseline: calc(((var(--line-height) - 1ex) / 2));
   --baseline-adjustment: 0.0ex;
-
-  --astro-code-token-constant: var(--accent-colour);
-  --astro-code-token-string: black;
-  --astro-code-token-comment: black;
-  --astro-code-token-keyword: var(--accent-colour);
-  --astro-code-token-parameter: black;
-  --astro-code-token-function: rgb(0, 163, 11);
-  --astro-code-token-string-expression: black;
-  --astro-code-token-punctuation: rgb(179, 0, 12);
-  --astro-code-token-link: black;
 }
 
 html {
@@ -45,7 +35,7 @@ code {
 }
 
 body.baseline {
-  // background: repeating-linear-gradient(white, white calc(1lh - 1px), #9da2db calc(1lh - 1px), #9da2db 1lh);
+  //background: repeating-linear-gradient(white, white calc(1lh - 1px), #9da2db calc(1lh - 1px), #9da2db 1lh);
 }
 
 main {
@@ -111,6 +101,26 @@ main {
         }
       }
     }
+  }
+
+  pre {
+    padding: calc(0.3 * var(--line-height));
+    margin-top: calc(var(--line-height) * -0.3);
+    margin-bottom: calc(var(--line-height) * 0.3);
+    margin-left: calc(var(--line-height) * -0.3);
+    margin-right: calc(var(--line-height) * -0.3);
+    border-radius: 0.2rem;
+
+    --astro-code-color-background: rgb(0, 12, 183, 0.05);
+    --astro-code-token-constant: var(--accent-colour);
+    --astro-code-token-string: black;
+    --astro-code-token-comment: black;
+    --astro-code-token-keyword: var(--accent-colour);
+    --astro-code-token-parameter: black;
+    --astro-code-token-function: rgb(0, 163, 11);
+    --astro-code-token-string-expression: black;
+    --astro-code-token-punctuation: rgb(179, 0, 12);
+    --astro-code-token-link: black;
   }
 
   .sr-only {

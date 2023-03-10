@@ -22,12 +22,16 @@ const { title, date, path } = article;
       }
 
       a:hover {
-        opacity: 0.5;
+        color: var(--accent-colour);
       }
     }
 
     h2 {
       font-weight: 100;
+      color: var(--accent-colour);
+      opacity: 0.8;
+      margin-top: calc(-0.5 * var(--line-height));
+      padding-bottom: calc(0.5 * var(--line-height));
     }
 
     margin-bottom: var(--line-height);
