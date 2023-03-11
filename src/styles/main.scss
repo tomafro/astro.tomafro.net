@@ -106,7 +106,7 @@ main {
   pre {
     padding: calc(0.3 * var(--line-height));
     margin-top: calc(var(--line-height) * -0.3);
-    margin-bottom: calc(var(--line-height) * 0.3);
+    margin-bottom: calc(var(--line-height) * 0.7);
     margin-left: calc(var(--line-height) * -0.3);
     margin-right: calc(var(--line-height) * -0.3);
     border-radius: 0.2rem;
@@ -121,6 +121,15 @@ main {
     --astro-code-token-string-expression: black;
     --astro-code-token-punctuation: rgb(179, 0, 12);
     --astro-code-token-link: black;
+    font-size: 0.9rem;
+    line-height: var(--line-height);
+  }
+
+  p code {
+    margin-top: -0.3em;
+    padding: 0.0rem 0.2rem;
+    border-radius: 0.2rem;
+    background: rgb(255, 242, 208);
   }
 
   .sr-only {
