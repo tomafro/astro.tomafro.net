@@ -14,10 +14,10 @@ export async function getStaticPaths() {
   }));
 }
 const { article } = Astro.props;
-const { Content, headings } = await article.render();
+const { Content } = await article.render();
 ---
 
-<Main title={article.title}>
+<Main title={article.title} section="articles">
   <Article article={article}>
     <Content />
   </Article>

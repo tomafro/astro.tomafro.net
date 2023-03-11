@@ -14,9 +14,9 @@ const rendered = await Promise.all(
 );
 ---
 
-<Main title="Articles">
+<Main title="Articles" section="articles">
   {
-    rendered.map(({ article, Content, headings }) => {
+    rendered.map(({ article, Content }) => {
       return (
         <Article article={article}>
           <Content />

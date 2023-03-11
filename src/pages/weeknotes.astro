@@ -16,7 +16,7 @@ const rendered = await Promise.all(
 
 <Main title="Weeknotes" section="weeknotes">
   {
-    rendered.map(({ weeknote, Content, headings }) => {
+    rendered.map(({ weeknote, Content }) => {
       return (
         <Article article={weeknote}>
           <Content />

@@ -1,5 +1,13 @@
 ---
 import { Picture } from "@astrojs/image/components";
+import type { ImageMetadata } from "@astrojs/assets";
+
+export interface Props {
+  src: ImageMetadata | Promise<{ default: ImageMetadata }>;
+  alt: string;
+  height: number;
+}
+
 const { src, alt, height } = Astro.props;
 const { width: imageWidth, height: imageHeight } = src;
 ---

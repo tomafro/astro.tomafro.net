@@ -19,7 +19,7 @@ interface Draftable {
   isDraft: boolean;
 }
 
-export class Collection extends Array {
+export class Collection<T> extends Array {
   static async load(name: "weeknotes" | "articles" | "projects", entryClass: Constructable) {
     return this.from(await getCollection(name)).map((entry) => Object.assign(new entryClass(), entry));
   }
@@ -28,17 +28,17 @@ export class Collection extends Array {
     return this.sort((a, b) => compare(f(a), f(b)));
   }
 
-  remove(f: (a: any) => boolean): any[] {
+  remove(f: (a: any) => boolean): Collection<T> {
     return this.filter((item) => !f(item));
   }
 
-  byMostRecent(): any[] {
+  byMostRecent(): Collection<T> {
     const result = this.sortBy(w => w.date);
     result.reverse();
     return result;
   }
 
-  wherePublished(): any[] {
+  wherePublished(): Collection<T> {
     return this.remove((entry: Draftable) => entry.isDraft);
   }
 }
@@ -96,6 +96,6 @@ class Weeknote extends Entry {
   }
 }
 
-export const weeknotes = await Collection.load("weeknotes", Weeknote);
-export const articles = await Collection.load("articles", Article);
-export const projects = await Collection.load("projects", Entry);
+export const weeknotes: Collection<Weeknote> = await Collection.load("weeknotes", Weeknote);
+export const articles: Collection<Article> = await Collection.load("articles", Article);
+export const projects: Collection<Entry> = await Collection.load("projects", Entry);
