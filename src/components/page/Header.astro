@@ -1,4 +1,17 @@
 ---
+type SectionKey = "about" | "weeknotes" | "projects";
+type Section = { name: string; href: string; key: SectionKey };
+
+const sections: Section[] = [
+  { name: "About", href: "/", key: "about" },
+  { name: "Weeknotes", href: "/weeknotes", key: "weeknotes" },
+  { name: "Projects", href: "/projects", key: "projects" },
+];
+
+export interface Props {
+  section: SectionKey;
+}
+
 import Icon from "../Icon.astro";
 ---
 
@@ -23,16 +36,34 @@ import Icon from "../Icon.astro";
       }
 
       ul.sections {
+        --item-padding: 0.25cqw;
+        --separator-padding: 0.25cqw;
+        margin-left: calc(var(--item-padding) * -1);
+
+        li {
+          display: flex;
+
+          a {
+            padding-left: var(--item-padding);
+            padding-right: var(--item-padding);
+          }
+        }
+
         li::after {
           content: "•";
-          padding-left: 0.5cqw;
-          padding-right: 0.5cqw;
+          padding-left: var(--separator-padding);
+          padding-right: var(--separator-padding);
         }
 
         li:last-child::after {
           content: "";
           padding-left: 0;
           padding-right: 0;
+        }
+
+        li[data-selected] a {
+          color: var(--accent-colour);
+          background: white;
         }
       }
 
@@ -59,9 +90,15 @@ import Icon from "../Icon.astro";
 <header>
   <nav>
     <ul class="sections">
-      <li><a href="/">About</a></li>
-      <li><a href="/weeknotes">Weeknotes</a></li>
-      <li><a href="/projects">Projects</a></li>
+      {
+        sections.map(({ name, href, key }) => {
+          return (
+            <li data-selected={key == Astro.props.section}>
+              <a href={href}>{name}</a>
+            </li>
+          );
+        })
+      }
     </ul>
     <ul class="icons">
       <li>

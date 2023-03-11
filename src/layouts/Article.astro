@@ -5,13 +5,14 @@ import Article from "@components/Article.astro";
 export interface Props {
   title: string;
   date: Date;
+  section: string;
 }
 
 const article = Astro.props.frontmatter || Astro.props;
-const { title } = article;
+const { title, section } = article;
 ---
 
-<Main title={title}>
+<Main title={title} section={section}>
   <Article article={article}>
     <slot />
   </Article>

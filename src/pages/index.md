@@ -1,6 +1,7 @@
 ---
 layout: ../layouts/Article.astro
 title: About Me
+section: "about"
 ---
 I'm Tom Ward, a London based software developer, currently working for [Farillio](https://farill.io).
 

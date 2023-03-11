@@ -11,7 +11,7 @@ const { entry } = Astro.props;
 const { Content } = await entry.render();
 ---
 
-<Main title={entry.title}>
+<Main title={entry.title} section="weeknotes">
   <Article article={entry}>
     <Content />
   </Article>
