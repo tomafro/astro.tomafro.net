@@ -7,10 +7,10 @@ import sitemap from "@astrojs/sitemap";
 import mdx from "@astrojs/mdx";
 
 // https://astro.build/config
-import image from "@astrojs/image";
-
-// https://astro.build/config
 export default defineConfig({
+  experimental: {
+    assets: true,
+  },
   build: {
     format: 'file'
   },
@@ -30,7 +30,7 @@ export default defineConfig({
     remarkRehype: { footnoteLabel: "Footnotes", footnoteLabelTagName: "p", footnoteBackLabel: "Back to content" },
 
   },
-  integrations: [sitemap(), mdx(), image()],
+  integrations: [sitemap(), mdx()],
   vite: {
     css: {
       preprocessorOptions: {

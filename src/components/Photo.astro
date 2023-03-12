@@ -1,11 +1,54 @@
 ---
-import { Picture } from "@astrojs/image/components";
+import { getImage } from "astro:assets";
+
+export interface Props {
+  src: ImageMetadata;
+  alt: string;
+  height: number;
+}
+
 var { src, alt, height } = Astro.props;
-src = await src;
+
 const { width: imageWidth, height: imageHeight } = src;
+
 height ||= imageHeight;
 const aspectRatio = imageWidth / imageHeight;
-const width = height * aspectRatio;
+const width = Math.round(height * aspectRatio);
+
+const img = await getImage({
+  src: src,
+  width: width,
+  height: height,
+  alt: alt,
+});
+
+const widths = [width * 2, width, Math.round(width / 2)];
+const formats = ["webp", "avif", src.format];
+
+function getContentType(format: string): string {
+  if (format == "jpg") {
+    return "image/jpeg";
+  }
+  return `image/${format}`;
+}
+
+const sources = await Promise.all(
+  formats.map(async (format) => {
+    const srcset = widths.map(async (width) => {
+      const image = await getImage({
+        src: src,
+        width: width,
+        height: Math.round(width / aspectRatio),
+        format: format,
+      });
+      return `${image.src} ${width}w`;
+    });
+    return {
+      contentType: getContentType(format),
+      srcset: (await Promise.all(srcset)).join(", "),
+    };
+  })
+);
 ---
 
 <style lang="scss">
@@ -27,18 +70,9 @@ const width = height * aspectRatio;
 
 <div>
   <figure>
-    <Picture
-      src={src}
-      alt={alt}
-      width={width}
-      height={height}
-      widths={[
-        imageWidth,
-        Math.round(imageWidth / 2),
-        Math.round(imageWidth / 4),
-        Math.round(imageWidth / 8),
-      ]}
-      aspectRatio={imageWidth / imageHeight}
-    />
+    <picture>
+      {sources.map((s) => <source {...s} />)}
+      <img src={img.src} width={width} height={height} alt={alt} />
+    </picture>
   </figure>
 </div>
