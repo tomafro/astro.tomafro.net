@@ -1,6 +1,6 @@
 ---
-import Main from "@layouts/Main.astro";
-import { projects } from "@lib/collections";
+import Main from "@/layouts/Main.astro";
+import { projects } from "@/lib/collections";
 
 const rendered = await Promise.all(
   projects.map(async (project) => {

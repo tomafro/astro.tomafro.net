@@ -1,7 +1,7 @@
 ---
-import Main from "@layouts/Main.astro";
-import Article from "@components/Article.astro";
-import { articles } from "@lib/collections";
+import Main from "@/layouts/Main.astro";
+import Article from "@/components/Article.astro";
+import { articles } from "@/lib/collections";
 
 const rendered = await Promise.all(
   articles

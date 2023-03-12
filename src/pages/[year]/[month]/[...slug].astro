@@ -1,7 +1,7 @@
 ---
-import Main from "@layouts/Main.astro";
-import Article from "@components/Article.astro";
-import { articles } from "@lib/collections";
+import Main from "@/layouts/Main.astro";
+import Article from "@/components/Article.astro";
+import { articles } from "@/lib/collections";
 
 export async function getStaticPaths() {
   return articles.map((article) => ({

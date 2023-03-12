@@ -1,7 +1,7 @@
 ---
-import Main from "@layouts/Main.astro";
-import Article from "@components/Article.astro";
-import { weeknotes } from "@lib/collections.js";
+import Main from "@/layouts/Main.astro";
+import Article from "@/components/Article.astro";
+import { weeknotes } from "@/lib/collections";
 
 const rendered = await Promise.all(
   weeknotes

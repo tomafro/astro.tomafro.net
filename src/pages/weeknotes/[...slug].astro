@@ -1,7 +1,7 @@
 ---
-import Main from "@layouts/Main.astro";
-import Article from "@components/Article.astro";
-import { weeknotes } from "@lib/collections";
+import Main from "@/layouts/Main.astro";
+import Article from "@/components/Article.astro";
+import { weeknotes } from "@/lib/collections";
 
 export async function getStaticPaths() {
   return weeknotes.wherePublished().map((entry) => entry.staticPath);

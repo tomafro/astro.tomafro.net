@@ -1,5 +1,5 @@
 import rss from '@astrojs/rss';
-import { weeknotes } from '@lib/collections';
+import { weeknotes } from '@/lib/collections';
 
 export async function get(context) {
   return rss({
