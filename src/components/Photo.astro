@@ -4,10 +4,11 @@ import { getImage } from "astro:assets";
 export interface Props {
   src: ImageMetadata;
   alt: string;
+  caption?: string;
   height: number;
 }
 
-var { src, alt, height } = Astro.props;
+var { src, alt, height, caption } = Astro.props;
 
 const { width: imageWidth, height: imageHeight } = src;
 
@@ -59,12 +60,21 @@ const sources = await Promise.all(
 
   figure {
     display: inline-block;
-    padding: 4px;
-    border: 1px solid #ccc;
 
     :global(img) {
+      padding: 4px;
+      border: 1px solid #ccc;
+
       display: block;
     }
+
+    figcaption {
+      font-size: 0.8em;
+      text-align: center;
+      font-style: italic;
+    }
+
+    margin-bottom: var(--line-height);
   }
 </style>
 
@@ -74,5 +84,6 @@ const sources = await Promise.all(
       {sources.map((s) => <source {...s} />)}
       <img src={img.src} width={width} height={height} alt={alt} />
     </picture>
+    {caption && <figcaption>{caption}</figcaption>}
   </figure>
 </div>

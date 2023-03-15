@@ -1,0 +1,35 @@
+---
+title: "Week 4: Central London bound"
+date: 2023-03-12
+---
+import Photo from "@/components/Photo.astro"
+import photo from "./_4-mummified-butt.jpg"
+
+<ul>
+  <li>
+    Frances went on a school trip to the British Museum[^1] on Tuesday. It must have been a success - she made us go back on Sunday, to show her brother a 5,500 year old mummified “butt”.
+
+    <Photo src={photo} caption="Look Fred, that's its butt" alt="My daughter pointing out the butt of a mummified man" height="448" widths={[100, 200, 400, 800, 1600]} aspectRatio={photo.width / photo.height}/>
+
+    We also all ate a meal in Chinatown at Fred’s favourite restaurant (he's been there once!), where he got us to eat exactly the same food he'd had the last time. It was actually pretty great. Are my kids growing up?
+  </li>
+  <li>
+    Suprised to see an Only Fools and Horses reference [in the TypeScript documentation](https://www.typescriptlang.org/docs/handbook/2/mapped-types.html).
+
+    ```ts
+    type OnlyBoolsAndHorses = {
+      [key: string]: boolean | Horse;
+    };
+
+    const conforms: OnlyBoolsAndHorses = {
+      del: true,
+      rodney: false,
+    };
+    ```
+  </li>
+  <li>
+    Zero running, zero PT sessions, zero exercise, ugh.
+  </li>
+</ul>
+
+[^1]: Tried to gently broach the subject with the kids as to whether all these antiquities _should_ be in Britain rather than their places of origin. Not much engagement, and then _my_ mind started wandering into thinking about the huge logistical operation it must have taken just to plunder all this stuff.
