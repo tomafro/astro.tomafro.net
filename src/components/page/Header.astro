@@ -1,16 +1,13 @@
 ---
-type SectionKey = "about" | "weeknotes" | "projects";
-type Section = { name: string; href: string; key: SectionKey };
-
-const sections: Section[] = [
-  { name: "About", href: "/", key: "about" },
-  { name: "Weeknotes", href: "/weeknotes", key: "weeknotes" },
-  { name: "Projects", href: "/projects", key: "projects" },
-];
+import { Sections } from "@/components/page/Sections";
 
 export interface Props {
-  section: SectionKey;
+  section: keyof typeof Sections;
 }
+
+const enabledSections = Object.entries(Sections).filter(
+  ([, { enabled }]) => enabled
+);
 
 import Icon from "../Icon.astro";
 ---
@@ -91,10 +88,10 @@ import Icon from "../Icon.astro";
   <nav>
     <ul class="sections">
       {
-        sections.map(({ name, href, key }) => {
+        enabledSections.map(([key, { name, url }]) => {
           return (
             <li data-selected={key == Astro.props.section}>
-              <a href={href}>{name}</a>
+              <a href={url}>{name}</a>
             </li>
           );
         })

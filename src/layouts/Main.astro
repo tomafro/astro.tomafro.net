@@ -1,14 +1,15 @@
 ---
 import "../styles/main.scss";
+
+import type { Sections } from "@/components/page/Sections";
+
 import Header from "@/components/page/Header.astro";
 import Main from "@/components/page/Main.astro";
 import Footer from "@/components/page/Footer.astro";
 
-import type { Section } from "@/lib/sections";
-
 export interface Props {
   title: string;
-  section: Section;
+  section: keyof typeof Sections;
 }
 
 const { title, section } = Astro.props.frontmatter || Astro.props;
