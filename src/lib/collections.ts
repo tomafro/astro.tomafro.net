@@ -1,4 +1,4 @@
-import { getCollection } from "astro:content";
+import { getCollection, CollectionEntry } from "astro:content";
 
 function compare(a: any, b: any): -1 | 0 | 1 {
   if (a < b) {
@@ -12,16 +12,17 @@ function compare(a: any, b: any): -1 | 0 | 1 {
 }
 
 interface Constructable {
-  new(): any;
+  new(): Entry;
 }
 
 interface Draftable {
   isDraft: boolean;
 }
 
-export class Collection<T> extends Array {
-  static async load(name: "weeknotes" | "articles" | "projects", entryClass: Constructable) {
-    return this.from(await getCollection(name)).map((entry) => Object.assign(new entryClass(), entry));
+export class Collection<T> extends Array<T> {
+  static async load<C extends "weeknotes" | "articles" | "projects", Entry>(name: "weeknotes" | "articles" | "projects", entryClass: Constructable): Promise<Collection<Entry>> {
+    let entries: CollectionEntry<C>[] = await getCollection(name);
+    return this.from(entries).map((entry) => Object.assign(new entryClass(), entry)) as Collection<Entry>;
   }
 
   sortBy(f: (a: any) => any) {
@@ -29,7 +30,7 @@ export class Collection<T> extends Array {
   }
 
   remove(f: (a: any) => boolean): Collection<T> {
-    return this.filter((item) => !f(item));
+    return this.filter((item) => !f(item)) as Collection<T>;
   }
 
   byMostRecent(): Collection<T> {
@@ -46,6 +47,7 @@ export class Collection<T> extends Array {
 interface Entry {
   slug: string;
   data: any;
+  render: any;
 }
 
 class Entry {
