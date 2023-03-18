@@ -125,6 +125,10 @@ main {
     line-height: var(--line-height);
   }
 
+  pre+h2 {
+    margin-top: calc(var(--line-height) * 2);
+  }
+
   p code {
     margin-top: -0.3em;
     padding: 0.0rem 0.2rem;

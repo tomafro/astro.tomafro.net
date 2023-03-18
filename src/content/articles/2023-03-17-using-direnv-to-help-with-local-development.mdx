@@ -1,6 +1,5 @@
 ---
-title: Using direnv to make life easier
-draft: true
+title: Using direnv to help with local development
 ---
 One of the tools I find most useful for local development is [direnv](https://direnv.net/). It's one of a number of similar utilities that hooks into your shell, and alters the environment when you enter or leave a directory.
 
@@ -52,12 +51,12 @@ In one of the clojure projects I work on, the command I use start the REPL is:
 ```bash
 clojure -A:dev:test:backend:backend-test:system-test:repl
 ```
-To save having to type this (or more accurately -- search the shell history), I put it in a very short script, saved (and `.gitignored`) in `.local/bin/repl`. Then in that project's `.envrc` I've simply put:
+To save having to type this (or more accurately -- search the shell history), I put it in a very short script, saved (and `.gitignored`) in `.local/bin/repl`. Then my `.envrc` I've put:
 
 ```bash
 PATH_add ./.local/bin
 ```
 
-When in this project folder, typing `repl` launches the repl.
+When I'm in the project folder, typing `repl` launches the repl.
 
 [^1]: If I'd set one. YOLO.
