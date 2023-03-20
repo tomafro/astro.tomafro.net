@@ -19,7 +19,7 @@ interface Draftable {
   isDraft: boolean;
 }
 
-export class Collection<T> extends Array<T> {
+export class Collection<Entry> extends Array<Entry> {
   static async load<C extends "weeknotes" | "articles" | "projects", Entry>(name: "weeknotes" | "articles" | "projects", entryClass: Constructable): Promise<Collection<Entry>> {
     let entries: CollectionEntry<C>[] = await getCollection(name);
     return this.from(entries).map((entry) => Object.assign(new entryClass(), entry)) as Collection<Entry>;
@@ -29,18 +29,22 @@ export class Collection<T> extends Array<T> {
     return this.sort((a, b) => compare(f(a), f(b)));
   }
 
-  remove(f: (a: any) => boolean): Collection<T> {
-    return this.filter((item) => !f(item)) as Collection<T>;
+  remove(f: (a: any) => boolean): Collection<Entry> {
+    return this.filter((item) => !f(item)) as Collection<Entry>;
   }
 
-  byMostRecent(): Collection<T> {
+  byMostRecent(): Collection<Entry> {
     const result = this.sortBy(w => w.date);
     result.reverse();
     return result;
   }
 
-  wherePublished(): Collection<T> {
+  wherePublished(): Collection<Entry> {
     return this.remove((entry: Draftable) => entry.isDraft);
+  }
+
+  staticPaths() {
+    return this.map((entry) => entry.staticPath);
   }
 }
 
@@ -50,13 +54,41 @@ interface Entry {
   render: any;
 }
 
+// interface Page {
+//   title: string;
+//   path: string;
+//   data: any;
+//   staticPath: any;
+//   isDraft?: boolean;
+// }
+
+// class Example implements Page {
+//   data: any;
+//   isDraft?: boolean;
+
+//   get staticPath() {
+//     return {
+//       params: { slug: this.data.slug },
+//       props: { entry: this },
+//     };
+//   }
+
+//   get path() {
+//     return `/example/${this.staticPath.params.slug}`
+//   }
+
+//   get title() {
+//     return this.data.title;
+//   }
+// }
+
 class Entry {
-  get staticPath() {
+  get staticPath(): any {
     return {
       params: { slug: this.slug },
       props: { entry: this },
     }
-  };
+  }
 
   get date() {
     return this.data.date;
@@ -72,10 +104,20 @@ class Entry {
 }
 
 class Article extends Entry {
+  get staticPath() {
+    return {
+      params: {
+        slug: this.slug.substring(11),
+        year: this.date.getFullYear(),
+        month: this.formattedMonth,
+      },
+      props: { article: this },
+    }
+  }
+
   get path() {
-    const year = this.date.getFullYear();
-    const month = (this.date.getMonth() + 1) < 10 ? `0${this.date.getMonth() + 1}` : this.date.getMonth() + 1;
-    return `/${year}/${month}/${this.slug.substring(11)}`;
+    const { year, month, slug } = this.staticPath.params;
+    return `/${year}/${month}/${slug}`;
   }
 
   get date() {
@@ -89,12 +131,16 @@ class Article extends Entry {
 }
 
 class Weeknote extends Entry {
-  get path() {
-    return `/weeknotes/${this.slug}`
-  }
+  get staticPath() {
+    return {
+      params: { slug: this.slug },
+      props: { entry: this },
+    }
+  };
 
-  get week() {
-    return parseInt(this.slug);
+  get path() {
+    const { slug } = this.staticPath.params;
+    return `/weeknotes/${slug}`
   }
 }
 
