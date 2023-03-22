@@ -8,9 +8,9 @@ export async function get(context) {
     site: context.site,
     stylesheet: '/pretty-feed-v3.xsl',
     items: weeknotes.map((entry) => ({
-      title: entry.data.title,
+      title: entry.title,
       pubDate: entry.date,
-      description: entry.data.description,
+      description: entry.description,
       link: entry.path,
     })),
   });

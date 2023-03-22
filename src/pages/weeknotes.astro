@@ -3,20 +3,13 @@ import Main from "@/layouts/Main.astro";
 import Article from "@/components/Article.astro";
 import { weeknotes } from "@/lib/collections";
 
-const rendered = await Promise.all(
-  weeknotes
-    .wherePublished()
-    .byMostRecent()
-    .map(async (weeknote) => {
-      const { Content, headings } = await weeknote.render();
-      return { weeknote, Content, headings };
-    })
-);
+const chosenWeeknotes = weeknotes.wherePublished().byMostRecent();
 ---
 
 <Main title="Weeknotes" section="weeknotes">
   {
-    rendered.map(({ weeknote, Content }) => {
+    chosenWeeknotes.map(async (weeknote) => {
+      const { Content } = await weeknote.render();
       return (
         <Article article={weeknote}>
           <Content />

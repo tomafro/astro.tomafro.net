@@ -3,20 +3,13 @@ import Main from "@/layouts/Main.astro";
 import Article from "@/components/Article.astro";
 import { articles } from "@/lib/collections";
 
-const rendered = await Promise.all(
-  articles
-    .wherePublished()
-    .byMostRecent()
-    .map(async (article) => {
-      const { Content, headings } = await article.render();
-      return { article, Content, headings };
-    })
-);
+const chosenArticles = articles.wherePublished().byMostRecent();
 ---
 
 <Main title="Articles" section="articles">
   {
-    rendered.map(({ article, Content }) => {
+    chosenArticles.map(async (article) => {
+      const { Content } = await article.render();
       return (
         <Article article={article}>
           <Content />

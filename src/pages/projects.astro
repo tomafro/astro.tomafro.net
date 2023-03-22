@@ -1,27 +1,21 @@
 ---
 import Main from "@/layouts/Main.astro";
 import { projects } from "@/lib/collections";
-
-const rendered = await Promise.all(
-  projects.map(async (project) => {
-    const { Content, headings } = await project.render();
-    return { project, Content, headings };
-  })
-);
 ---
 
 <Main title="Projects" section="projects">
   <h1>Projects</h1>
   <ul class="content-list">
     {
-      rendered.map(({ project, Content }) => {
+      projects.map(async (project) => {
+        const { Content } = await project.render();
         return (
           <li>
             <h2>
-              {project.data.private ? (
-                project.data.title + " (coming soon)"
+              {project.isPrivate ? (
+                project.title + " (coming soon)"
               ) : (
-                <a href={project.data.url}>{project.data.title}</a>
+                <a href={project.url}>{project.title}</a>
               )}
             </h2>
             <Content />
