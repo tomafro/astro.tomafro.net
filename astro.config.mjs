@@ -8,13 +8,11 @@ import mdx from "@astrojs/mdx";
 
 // https://astro.build/config
 export default defineConfig({
-  experimental: {
-    assets: true,
-  },
   build: {
     format: 'file'
   },
   site: "https://tomafro.net",
+  scopedStyleStrategy: "class",
   markdown: {
     shikiConfig: {
       // Choose from Shiki's built-in themes (or add your own)
@@ -28,7 +26,6 @@ export default defineConfig({
       wrap: true
     },
     remarkRehype: { footnoteLabel: "Footnotes", footnoteLabelTagName: "p", footnoteBackLabel: "Back to content" },
-
   },
   integrations: [sitemap(), mdx()],
   vite: {
