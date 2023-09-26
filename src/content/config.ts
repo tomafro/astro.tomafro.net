@@ -24,8 +24,16 @@ const weeknotes = defineCollection({
   })
 });
 
+const stream = defineCollection({
+  schema: z.object({
+    title: z.string(),
+    draft: z.boolean().optional(),
+  })
+});
+
 export const collections = {
   'projects': projects,
   'articles': articles,
   'weeknotes': weeknotes,
+  'stream': stream,
 };

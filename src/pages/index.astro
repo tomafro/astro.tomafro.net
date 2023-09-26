@@ -1,0 +1,22 @@
+---
+import Main from "@/layouts/Main.astro";
+import { stream } from "@/lib/collections";
+
+const sortedEntries = stream.byMostRecent();
+---
+
+<Main title="Stream" section="home">
+  <ul class="content-list">
+    {
+      sortedEntries.map(async (entry) => {
+        const { Content } = await entry.render();
+        return (
+          <li>
+            <h2>{entry.title}</h2>
+            <Content />
+          </li>
+        );
+      })
+    }
+  </ul>
+</Main>

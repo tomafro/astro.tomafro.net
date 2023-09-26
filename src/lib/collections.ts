@@ -1,6 +1,6 @@
-import { CollectionEntry, getCollection } from "astro:content";
+import { type CollectionEntry, getCollection } from "astro:content";
 
-interface Page<T extends "weeknotes" | "articles" | "projects"> {
+interface Entry<T extends "weeknotes" | "articles" | "projects" | "stream"> {
   collection: T;
   path: string;
   staticPath: any;
@@ -10,7 +10,7 @@ interface Page<T extends "weeknotes" | "articles" | "projects"> {
   render(): Promise<{ Content: any, headings: any }>;
 }
 
-export class Weeknote implements Page<"weeknotes"> {
+export class WeeknoteEntry implements Entry<"weeknotes"> {
   collection: "weeknotes" = "weeknotes";
   entry: CollectionEntry<"weeknotes">;
 
@@ -46,9 +46,16 @@ export class Weeknote implements Page<"weeknotes"> {
   }
 }
 
-export class Article implements Page<"articles"> {
+export class ArticleEntry implements Entry<"articles"> {
   collection: "articles" = "articles";
   entry: CollectionEntry<"articles">;
+
+  static async load(): Promise<Collection<ArticleEntry>> {
+    let entries = (await getCollection("articles")).map((entry) => new ArticleEntry(entry));
+    let result = new Collection<ArticleEntry>();
+    result.push(...entries);
+    return result;
+  }
 
   constructor(entry: CollectionEntry<"articles">) {
     this.entry = entry;
@@ -92,7 +99,60 @@ export class Article implements Page<"articles"> {
   }
 }
 
-export class Project implements Page<"projects"> {
+export class Stream implements Entry<"stream"> {
+  collection: "stream" = "stream";
+  entry: CollectionEntry<"stream">;
+
+  static async load(): Promise<Collection<Stream>> {
+    let entries = (await getCollection("stream")).map((entry) => new Stream(entry));
+    let result = new Collection<Stream>();
+    result.push(...entries);
+    return result;
+  }
+
+  constructor(entry: CollectionEntry<"stream">) {
+    this.entry = entry;
+  }
+
+  get title() {
+    return this.entry.data.title;
+  }
+
+  get date() {
+    return new Date(this.entry.slug.substring(0, 10));
+  }
+
+  get isDraft() {
+    return this.entry.data.draft;
+  }
+
+  get #formattedMonth() {
+    const month = this.date.getMonth() + 1;
+    return month < 10 ? `0${month}` : month;
+  }
+
+  get staticPath() {
+    return {
+      params: {
+        slug: this.entry.slug.substring(11),
+        year: this.date.getFullYear(),
+        month: this.#formattedMonth,
+      },
+      props: { article: this },
+    }
+  }
+
+  get path() {
+    const { year, month, slug } = this.staticPath.params;
+    return `/${year}/${month}/${slug}`;
+  }
+
+  render() {
+    return this.entry.render();
+  }
+}
+
+export class ProjectEntry implements Entry<"projects"> {
   collection: "projects" = "projects";
   entry: CollectionEntry<"projects">;
 
@@ -139,15 +199,25 @@ function compare(a: any, b: any): -1 | 0 | 1 {
   return 0;
 }
 
-export class Collection<T extends Weeknote | Article | Project> extends Array<T> {
-  static async load(name: "weeknotes"): Promise<Collection<Weeknote>>;
-  static async load(name: "articles"): Promise<Collection<Article>>;
-  static async load(name: "projects"): Promise<Collection<Project>>;
+export class Collection<T extends WeeknoteEntry | ArticleEntry | ProjectEntry | Stream> extends Array<T> {
+  static async load(name: "weeknotes"): Promise<Collection<WeeknoteEntry>>;
+  static async load(name: "articles"): Promise<Collection<ArticleEntry>>;
+  static async load(name: "projects"): Promise<Collection<ProjectEntry>>;
 
   static async load(name: "weeknotes" | "articles" | "projects"): Promise<unknown> {
     let entries = (await getCollection(name));
-    let pages = entries.map((entry) => new (name === "weeknotes" ? Weeknote : name === "articles" ? Article : Project)(entry));
-    let result = new Collection<Weeknote | Article | Project>();
+    let pages = entries.map((entry) => {
+      if (name === "weeknotes") {
+        return new WeeknoteEntry(entry);
+      }
+      else if (name === "articles") {
+        return new ArticleEntry(entry);
+      }
+      else {
+        return new ProjectEntry(entry);
+      }
+    });
+    let result = new Collection<WeeknoteEntry | ArticleEntry | ProjectEntry>();
     result.push(...pages);
     return result;
   }
@@ -175,9 +245,11 @@ export class Collection<T extends Weeknote | Article | Project> extends Array<T>
   }
 }
 
-export const articles: Collection<Article> = await Collection.load("articles");
-export const weeknotes: Collection<Weeknote> = await Collection.load("weeknotes");
-export const projects: Collection<Project> = await Collection.load("projects");
-export const posts: Collection<Weeknote | Article> = new Collection<Weeknote | Article>();
+export const articles: Collection<ArticleEntry> = await Collection.load("articles");
+export const weeknotes: Collection<WeeknoteEntry> = await Collection.load("weeknotes");
+export const projects: Collection<ProjectEntry> = await Collection.load("projects");
+export const posts: Collection<WeeknoteEntry | ArticleEntry> = new Collection<WeeknoteEntry | ArticleEntry>();
 posts.push(...weeknotes);
 posts.push(...articles);
+
+export const stream: Collection<Stream> = await Stream.load();
