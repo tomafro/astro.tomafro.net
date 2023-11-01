@@ -1,6 +1,6 @@
 import { type CollectionEntry, getCollection } from "astro:content";
 
-interface Entry<T extends "weeknotes" | "articles" | "projects" | "stream"> {
+interface Entry<T extends "weeknotes" | "articles" | "projects" | "scraps"> {
   collection: T;
   path: string;
   staticPath: any;
@@ -13,6 +13,13 @@ interface Entry<T extends "weeknotes" | "articles" | "projects" | "stream"> {
 export class WeeknoteEntry implements Entry<"weeknotes"> {
   collection: "weeknotes" = "weeknotes";
   entry: CollectionEntry<"weeknotes">;
+
+  static async load(): Promise<Collection<WeeknoteEntry>> {
+    let entries = (await getCollection("weeknotes")).map((entry) => new WeeknoteEntry(entry));
+    let result = new Collection<WeeknoteEntry>();
+    result.push(...entries);
+    return result;
+  }
 
   constructor(entry: CollectionEntry<"weeknotes">) {
     this.entry = entry;
@@ -99,18 +106,18 @@ export class ArticleEntry implements Entry<"articles"> {
   }
 }
 
-export class Stream implements Entry<"stream"> {
-  collection: "stream" = "stream";
-  entry: CollectionEntry<"stream">;
+export class Scrap implements Entry<"scraps"> {
+  collection: "scraps" = "scraps";
+  entry: CollectionEntry<"scraps">;
 
-  static async load(): Promise<Collection<Stream>> {
-    let entries = (await getCollection("stream")).map((entry) => new Stream(entry));
-    let result = new Collection<Stream>();
+  static async load(): Promise<Collection<Scrap>> {
+    let entries = (await getCollection("scraps")).map((entry) => new Scrap(entry));
+    let result = new Collection<Scrap>();
     result.push(...entries);
     return result;
   }
 
-  constructor(entry: CollectionEntry<"stream">) {
+  constructor(entry: CollectionEntry<"scraps">) {
     this.entry = entry;
   }
 
@@ -124,6 +131,10 @@ export class Stream implements Entry<"stream"> {
 
   get isDraft() {
     return this.entry.data.draft;
+  }
+
+  get hideTitle() {
+    return this.entry.data.hideTitle;
   }
 
   get #formattedMonth() {
@@ -155,6 +166,13 @@ export class Stream implements Entry<"stream"> {
 export class ProjectEntry implements Entry<"projects"> {
   collection: "projects" = "projects";
   entry: CollectionEntry<"projects">;
+
+  static async load(): Promise<Collection<ProjectEntry>> {
+    let entries = (await getCollection("projects")).map((entry) => new ProjectEntry(entry));
+    let result = new Collection<ProjectEntry>();
+    result.push(...entries);
+    return result;
+  }
 
   constructor(entry: CollectionEntry<"projects">) {
     this.entry = entry;
@@ -199,29 +217,7 @@ function compare(a: any, b: any): -1 | 0 | 1 {
   return 0;
 }
 
-export class Collection<T extends WeeknoteEntry | ArticleEntry | ProjectEntry | Stream> extends Array<T> {
-  static async load(name: "weeknotes"): Promise<Collection<WeeknoteEntry>>;
-  static async load(name: "articles"): Promise<Collection<ArticleEntry>>;
-  static async load(name: "projects"): Promise<Collection<ProjectEntry>>;
-
-  static async load(name: "weeknotes" | "articles" | "projects"): Promise<unknown> {
-    let entries = (await getCollection(name));
-    let pages = entries.map((entry) => {
-      if (name === "weeknotes") {
-        return new WeeknoteEntry(entry);
-      }
-      else if (name === "articles") {
-        return new ArticleEntry(entry);
-      }
-      else {
-        return new ProjectEntry(entry);
-      }
-    });
-    let result = new Collection<WeeknoteEntry | ArticleEntry | ProjectEntry>();
-    result.push(...pages);
-    return result;
-  }
-
+export class Collection<T extends WeeknoteEntry | ArticleEntry | ProjectEntry | Scrap> extends Array<T> {
   sortBy(f: (a: any) => any) {
     return this.sort((a, b) => compare(f(a), f(b)));
   }
@@ -245,11 +241,11 @@ export class Collection<T extends WeeknoteEntry | ArticleEntry | ProjectEntry | 
   }
 }
 
-export const articles: Collection<ArticleEntry> = await Collection.load("articles");
-export const weeknotes: Collection<WeeknoteEntry> = await Collection.load("weeknotes");
-export const projects: Collection<ProjectEntry> = await Collection.load("projects");
+export const articles: Collection<ArticleEntry> = await ArticleEntry.load();
+export const weeknotes: Collection<WeeknoteEntry> = await WeeknoteEntry.load();
+export const projects: Collection<ProjectEntry> = await ProjectEntry.load();
 export const posts: Collection<WeeknoteEntry | ArticleEntry> = new Collection<WeeknoteEntry | ArticleEntry>();
 posts.push(...weeknotes);
 posts.push(...articles);
 
-export const stream: Collection<Stream> = await Stream.load();
+export const scraps: Collection<Scrap> = await Scrap.load();

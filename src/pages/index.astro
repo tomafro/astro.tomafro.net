@@ -1,18 +1,19 @@
 ---
 import Main from "@/layouts/Main.astro";
-import { stream } from "@/lib/collections";
+import { scraps } from "@/lib/collections";
 
-const sortedEntries = stream.byMostRecent();
+const sortedEntries = scraps.byMostRecent();
 ---
 
-<Main title="Stream" section="home">
+<Main title="Scraps" section="home">
   <ul class="content-list">
     {
       sortedEntries.map(async (entry) => {
         const { Content } = await entry.render();
+        const title = (!entry.hideTitle) ? <h2>{entry.title}</h2> : null;
         return (
           <li>
-            <h2>{entry.title}</h2>
+            {title}
             <Content />
           </li>
         );

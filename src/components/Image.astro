@@ -1,0 +1,7 @@
+---
+import { Image as AstroImage } from 'astro:assets';
+const {...attrs} = Astro.props;
+const { width } = attrs.src;
+const widths = [width, Math.round(width / 2), Math.round(width / 3), Math.round(width / 4)]
+---
+<AstroImage widths={widths} format="webp" style="max-width: 100%; height: auto;" {...attrs} />

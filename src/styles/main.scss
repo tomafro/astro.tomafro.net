@@ -28,6 +28,19 @@ html {
   line-height: var(--line-height);
 }
 
+a {
+  color: var(--accent-colour);
+  transition: 0.15s;
+
+  &:visited {
+    color: rgb(126, 0, 205);
+  }
+
+  &:hover {
+    opacity: 0.5;
+  }
+}
+
 pre,
 code {
   font-family: var(--code-font);

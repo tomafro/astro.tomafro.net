@@ -1,7 +1,7 @@
 ---
 title: "TIL: Postgres version numbering"
 ---
-I wanted to programatically compare postgresql versions on CI, local development, production, etc. You can get a version string with `SHOW server_version` (or `SELECT current_setting('server_version')`), but this can contain extra info. For example, on my development machine the value is `15.4 (Homebrew)`. As well as the string, there's also a version number which looked more useful.
+I wanted to programatically compare postgresql versions on CI, local development, production, etc. You can get a version string with `SHOW server_version` (or `SELECT current_setting('server_version')`), but this can contain extra info. For example, on my development machine the value is `15.4 (Homebrew)`. As well as the string, there's also a version number which seemed more useful.
 
 ```sql
 SELECT current_setting('server_version_num');

@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# Create a new file under src/scraps with a name based on the current date and time
+
+# Get the current date and time
+now=$(date +"%Y-%m-%d-%H%M%S")
+file=src/content/scraps/$now-$1.md
+
+# Create a new file under src/scraps with the current date and time and first argument as the title
+touch $file
+
+# Open the new file in the $EDITOR
+$EDITOR $file
