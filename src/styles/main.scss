@@ -122,9 +122,10 @@ main {
     margin-bottom: calc(var(--line-height) * 0.7);
     margin-left: calc(var(--line-height) * -0.3);
     margin-right: calc(var(--line-height) * -0.3);
-    border-radius: 0.2rem;
+    border-radius: 0.3rem;
+    border: 1px solid rgb(204, 219, 255);
 
-    --astro-code-color-background: rgb(0, 12, 183, 0.05);
+    --astro-code-color-background: rgb(241, 245, 255);
     --astro-code-token-constant: var(--accent-colour);
     --astro-code-token-string: black;
     --astro-code-token-comment: black;
